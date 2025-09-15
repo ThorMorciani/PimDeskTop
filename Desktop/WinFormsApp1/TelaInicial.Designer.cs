@@ -31,12 +31,15 @@
             tbcMenu = new TabControl();
             tabPageCadastro = new TabPage();
             dgvUsers = new DataGridView();
+            ColunaNome = new DataGridViewTextBoxColumn();
+            ColunaEmail = new DataGridViewTextBoxColumn();
+            columnAtividade = new DataGridViewButtonColumn();
             btnRegister = new Button();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
+            lblConfirmPassword = new Label();
+            lblPassword = new Label();
+            lblEmail = new Label();
+            lblName = new Label();
+            lblUser = new Label();
             txtConfirmPassword = new TextBox();
             txtPassword = new TextBox();
             txtEmail = new TextBox();
@@ -52,16 +55,13 @@
             tbpCausasRaiz = new TabPage();
             btnCadastrarCausaRaiz = new Button();
             cboPrioridade = new ComboBox();
-            label7 = new Label();
-            label6 = new Label();
+            lblPriority = new Label();
+            lblRoot = new Label();
             txtNomeCausaRaiz = new TextBox();
             dgvCausaRaiz = new DataGridView();
             columnCausaRaiz = new DataGridViewTextBoxColumn();
             columnPrioridade = new DataGridViewTextBoxColumn();
             columnStatus = new DataGridViewButtonColumn();
-            ColunaNome = new DataGridViewTextBoxColumn();
-            ColunaEmail = new DataGridViewTextBoxColumn();
-            columnAtividade = new DataGridViewButtonColumn();
             tbcMenu.SuspendLayout();
             tabPageCadastro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
@@ -86,11 +86,11 @@
             // 
             tabPageCadastro.Controls.Add(dgvUsers);
             tabPageCadastro.Controls.Add(btnRegister);
-            tabPageCadastro.Controls.Add(label5);
-            tabPageCadastro.Controls.Add(label4);
-            tabPageCadastro.Controls.Add(label3);
-            tabPageCadastro.Controls.Add(label2);
-            tabPageCadastro.Controls.Add(label1);
+            tabPageCadastro.Controls.Add(lblConfirmPassword);
+            tabPageCadastro.Controls.Add(lblPassword);
+            tabPageCadastro.Controls.Add(lblEmail);
+            tabPageCadastro.Controls.Add(lblName);
+            tabPageCadastro.Controls.Add(lblUser);
             tabPageCadastro.Controls.Add(txtConfirmPassword);
             tabPageCadastro.Controls.Add(txtPassword);
             tabPageCadastro.Controls.Add(txtEmail);
@@ -114,6 +114,22 @@
             dgvUsers.TabIndex = 11;
             dgvUsers.CellContentClick += dgvUsers_CellContentClick;
             // 
+            // ColunaNome
+            // 
+            ColunaNome.HeaderText = "Nome";
+            ColunaNome.Name = "ColunaNome";
+            // 
+            // ColunaEmail
+            // 
+            ColunaEmail.HeaderText = "Email";
+            ColunaEmail.Name = "ColunaEmail";
+            // 
+            // columnAtividade
+            // 
+            columnAtividade.HeaderText = "Status";
+            columnAtividade.Name = "columnAtividade";
+            columnAtividade.Text = "Status";
+            // 
             // btnRegister
             // 
             btnRegister.Location = new Point(25, 364);
@@ -124,51 +140,51 @@
             btnRegister.UseVisualStyleBackColor = true;
             btnRegister.Click += button1_Click;
             // 
-            // label5
+            // lblConfirmPassword
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(25, 290);
-            label5.Name = "label5";
-            label5.Size = new Size(95, 15);
-            label5.TabIndex = 9;
-            label5.Text = "Confirmar senha";
+            lblConfirmPassword.AutoSize = true;
+            lblConfirmPassword.Location = new Point(25, 290);
+            lblConfirmPassword.Name = "lblConfirmPassword";
+            lblConfirmPassword.Size = new Size(95, 15);
+            lblConfirmPassword.TabIndex = 9;
+            lblConfirmPassword.Text = "Confirmar senha";
             // 
-            // label4
+            // lblPassword
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(25, 226);
-            label4.Name = "label4";
-            label4.Size = new Size(39, 15);
-            label4.TabIndex = 8;
-            label4.Text = "Senha";
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(25, 226);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(39, 15);
+            lblPassword.TabIndex = 8;
+            lblPassword.Text = "Senha";
             // 
-            // label3
+            // lblEmail
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(25, 159);
-            label3.Name = "label3";
-            label3.Size = new Size(36, 15);
-            label3.TabIndex = 7;
-            label3.Text = "Email";
+            lblEmail.AutoSize = true;
+            lblEmail.Location = new Point(25, 159);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(36, 15);
+            lblEmail.TabIndex = 7;
+            lblEmail.Text = "Email";
             // 
-            // label2
+            // lblName
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(25, 100);
-            label2.Name = "label2";
-            label2.Size = new Size(40, 15);
-            label2.TabIndex = 6;
-            label2.Text = "Nome";
-            label2.Click += label2_Click;
+            lblName.AutoSize = true;
+            lblName.Location = new Point(25, 100);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(40, 15);
+            lblName.TabIndex = 6;
+            lblName.Text = "Nome";
+            lblName.Click += label2_Click;
             // 
-            // label1
+            // lblUser
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(25, 39);
-            label1.Name = "label1";
-            label1.Size = new Size(99, 15);
-            label1.TabIndex = 5;
-            label1.Text = "Nome de Usuário";
+            lblUser.AutoSize = true;
+            lblUser.Location = new Point(25, 39);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(99, 15);
+            lblUser.TabIndex = 5;
+            lblUser.Text = "Nome de Usuário";
             // 
             // txtConfirmPassword
             // 
@@ -279,8 +295,8 @@
             // 
             tbpCausasRaiz.Controls.Add(btnCadastrarCausaRaiz);
             tbpCausasRaiz.Controls.Add(cboPrioridade);
-            tbpCausasRaiz.Controls.Add(label7);
-            tbpCausasRaiz.Controls.Add(label6);
+            tbpCausasRaiz.Controls.Add(lblPriority);
+            tbpCausasRaiz.Controls.Add(lblRoot);
             tbpCausasRaiz.Controls.Add(txtNomeCausaRaiz);
             tbpCausasRaiz.Controls.Add(dgvCausaRaiz);
             tbpCausasRaiz.Location = new Point(4, 24);
@@ -309,23 +325,23 @@
             cboPrioridade.Size = new Size(191, 23);
             cboPrioridade.TabIndex = 4;
             // 
-            // label7
+            // lblPriority
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(19, 85);
-            label7.Name = "label7";
-            label7.Size = new Size(107, 15);
-            label7.TabIndex = 3;
-            label7.Text = "Nível de Prioridade";
+            lblPriority.AutoSize = true;
+            lblPriority.Location = new Point(19, 85);
+            lblPriority.Name = "lblPriority";
+            lblPriority.Size = new Size(107, 15);
+            lblPriority.TabIndex = 3;
+            lblPriority.Text = "Nível de Prioridade";
             // 
-            // label6
+            // lblRoot
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(19, 26);
-            label6.Name = "label6";
-            label6.Size = new Size(99, 15);
-            label6.TabIndex = 2;
-            label6.Text = "Nome Causa Raíz";
+            lblRoot.AutoSize = true;
+            lblRoot.Location = new Point(19, 26);
+            lblRoot.Name = "lblRoot";
+            lblRoot.Size = new Size(99, 15);
+            lblRoot.TabIndex = 2;
+            lblRoot.Text = "Nome Causa Raíz";
             // 
             // txtNomeCausaRaiz
             // 
@@ -359,22 +375,6 @@
             columnStatus.HeaderText = "Status";
             columnStatus.Name = "columnStatus";
             // 
-            // ColunaNome
-            // 
-            ColunaNome.HeaderText = "Nome";
-            ColunaNome.Name = "ColunaNome";
-            // 
-            // ColunaEmail
-            // 
-            ColunaEmail.HeaderText = "Email";
-            ColunaEmail.Name = "ColunaEmail";
-            // 
-            // columnAtividade
-            // 
-            columnAtividade.HeaderText = "Status";
-            columnAtividade.Name = "columnAtividade";
-            columnAtividade.Text = "Status";
-            // 
             // TelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -401,11 +401,11 @@
         private TabControl tbcMenu;
         private TabPage tabPageCadastro;
         private TabPage tbpRelatorio;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
+        private Label lblConfirmPassword;
+        private Label lblPassword;
+        private Label lblEmail;
+        private Label lblName;
+        private Label lblUser;
         private TextBox txtConfirmPassword;
         private TextBox txtPassword;
         private TextBox txtEmail;
@@ -420,8 +420,8 @@
         private Label lblDatafinal;
         private Button btnGerarRelatorio;
         private TabPage tbpCausasRaiz;
-        private Label label7;
-        private Label label6;
+        private Label lblPriority;
+        private Label lblRoot;
         private TextBox txtNomeCausaRaiz;
         private DataGridView dgvCausaRaiz;
         private Button btnCadastrarCausaRaiz;
