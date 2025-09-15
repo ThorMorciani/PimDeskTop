@@ -7,12 +7,19 @@
       "RelativeMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|solutionrelative:winformsapp1\\telainicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|c:\\users\\jrrod\\onedrive\\desktop\\pimdesktop\\desktop\\winformsapp1\\telainicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\winformsapp1\\telainicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|solutionrelative:winformsapp1\\telainicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|c:\\users\\jrrod\\onedrive\\desktop\\pimdesktop\\desktop\\winformsapp1\\telalogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|solutionrelative:winformsapp1\\telalogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|c:\\users\\jrrod\\onedrive\\desktop\\pimdesktop\\desktop\\winformsapp1\\telalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|solutionrelative:winformsapp1\\telalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\winformsapp1\\telalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -21,13 +28,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\WinFormsApp1.csproj|C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\winformsapp1\\telalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\WinFormsApp1.csproj|solutionrelative:winformsapp1\\telalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|c:\\users\\jrrod\\onedrive\\desktop\\pimdesktop\\desktop\\winformsapp1\\telalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84741B35-C9C5-4BD6-9815-2B9DBC93326B}|WinFormsApp1\\IAssist.csproj|solutionrelative:winformsapp1\\telalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -45,19 +45,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TelaLogin.cs [Projeto]",
+              "DocumentIndex": 5,
+              "Title": "TelaLogin.cs [Design]",
               "DocumentMoniker": "C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\WinFormsApp1\\TelaLogin.cs",
               "RelativeDocumentMoniker": "WinFormsApp1\\TelaLogin.cs",
-              "ToolTip": "C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\WinFormsApp1\\TelaLogin.cs [Projeto]",
-              "RelativeToolTip": "WinFormsApp1\\TelaLogin.cs [Projeto]",
+              "ToolTip": "C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\WinFormsApp1\\TelaLogin.cs [Design]",
+              "RelativeToolTip": "WinFormsApp1\\TelaLogin.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-15T02:27:25.462Z",
-              "EditorCaption": " [Projeto]"
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -65,8 +65,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "ViewState": "AgIAAPwUAAAAAAAAAAAjwBEVAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-08-28T21:16:37.886Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-28T21:16:37.886Z"
             },
             {
               "$type": "Document",
@@ -89,7 +88,7 @@
               "RelativeDocumentMoniker": "WinFormsApp1\\TelaInicial.cs",
               "ToolTip": "C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\WinFormsApp1\\TelaInicial.cs",
               "RelativeToolTip": "WinFormsApp1\\TelaInicial.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAUwEAAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAqwCwAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-28T20:48:06.935Z",
               "EditorCaption": ""
@@ -108,20 +107,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "TelaLogin.cs",
               "DocumentMoniker": "C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\WinFormsApp1\\TelaLogin.cs",
               "RelativeDocumentMoniker": "WinFormsApp1\\TelaLogin.cs",
               "ToolTip": "C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\WinFormsApp1\\TelaLogin.cs",
               "RelativeToolTip": "WinFormsApp1\\TelaLogin.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-26T12:50:30.798Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-26T12:50:30.798Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "TelaLogin.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\jrrod\\OneDrive\\Desktop\\PimDeskTop\\Desktop\\WinFormsApp1\\TelaLogin.cs",
               "RelativeDocumentMoniker": "WinFormsApp1\\TelaLogin.cs",

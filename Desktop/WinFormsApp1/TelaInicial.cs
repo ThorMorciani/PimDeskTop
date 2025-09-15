@@ -26,14 +26,14 @@ namespace WinFormsApp1
         {
             string nome = txtName.Text.Trim();
             string email = txtEmail.Text.Trim();
-            string remover = "remover";
+            string status = "Ativo";
             if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Preencha os campos Nome e Email.");
                 return;
             }
 
-            dgvUsers.Rows.Add(nome, email, remover);
+            dgvUsers.Rows.Add(nome, email, status);
             txtName.Clear();
             txtEmail.Clear();
 
@@ -41,14 +41,38 @@ namespace WinFormsApp1
 
         private void dgvUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == dgvUsers.Columns["ColunaRemover"].Index)
+            if (e.RowIndex < 0) return;
+            if (dgvUsers.Columns[e.ColumnIndex].Name != "columnAtividade") return;
+
+            DataGridViewRow row = dgvUsers.Rows[e.RowIndex];
+            DataGridViewButtonCell btnCell = (DataGridViewButtonCell)row.Cells["columnAtividade"];
+            string statusAtual = btnCell.Value?.ToString();
+
+            if (statusAtual == "Ativo")
             {
-               
-                var confirmResult = MessageBox.Show("Deseja realmente remover este usuário?", "Confirmação", MessageBoxButtons.YesNo);
-                if (confirmResult == DialogResult.Yes)
+                var resposta = MessageBox.Show(
+                    "Deseja realmente inativar este Usuário?",
+                    "Confirmar Inativação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (resposta == DialogResult.Yes)
                 {
-                    
-                    dgvUsers.Rows.RemoveAt(e.RowIndex);
+                    btnCell.Value = "Inativo";
+                }
+
+            }
+            else
+            {
+                var resposta = MessageBox.Show(
+                    "Deseja realmente ativar este Usuário?",
+                    "Confirmar Ativação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (resposta == DialogResult.Yes)
+                {
+                    btnCell.Value = "Ativo";
                 }
             }
         }

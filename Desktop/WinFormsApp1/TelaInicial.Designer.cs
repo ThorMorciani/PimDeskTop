@@ -31,9 +31,6 @@
             tbcMenu = new TabControl();
             tabPageCadastro = new TabPage();
             dgvUsers = new DataGridView();
-            ColunaNome = new DataGridViewTextBoxColumn();
-            ColunaEmail = new DataGridViewTextBoxColumn();
-            ColunaRemover = new DataGridViewButtonColumn();
             btnRegister = new Button();
             label5 = new Label();
             label4 = new Label();
@@ -62,6 +59,9 @@
             columnCausaRaiz = new DataGridViewTextBoxColumn();
             columnPrioridade = new DataGridViewTextBoxColumn();
             columnStatus = new DataGridViewButtonColumn();
+            ColunaNome = new DataGridViewTextBoxColumn();
+            ColunaEmail = new DataGridViewTextBoxColumn();
+            columnAtividade = new DataGridViewButtonColumn();
             tbcMenu.SuspendLayout();
             tabPageCadastro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
@@ -107,27 +107,12 @@
             // dgvUsers
             // 
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { ColunaNome, ColunaEmail, ColunaRemover });
+            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { ColunaNome, ColunaEmail, columnAtividade });
             dgvUsers.Location = new Point(566, 16);
             dgvUsers.Name = "dgvUsers";
             dgvUsers.Size = new Size(741, 492);
             dgvUsers.TabIndex = 11;
             dgvUsers.CellContentClick += dgvUsers_CellContentClick;
-            // 
-            // ColunaNome
-            // 
-            ColunaNome.HeaderText = "Nome";
-            ColunaNome.Name = "ColunaNome";
-            // 
-            // ColunaEmail
-            // 
-            ColunaEmail.HeaderText = "Email";
-            ColunaEmail.Name = "ColunaEmail";
-            // 
-            // ColunaRemover
-            // 
-            ColunaRemover.HeaderText = "";
-            ColunaRemover.Name = "ColunaRemover";
             // 
             // btnRegister
             // 
@@ -374,6 +359,22 @@
             columnStatus.HeaderText = "Status";
             columnStatus.Name = "columnStatus";
             // 
+            // ColunaNome
+            // 
+            ColunaNome.HeaderText = "Nome";
+            ColunaNome.Name = "ColunaNome";
+            // 
+            // ColunaEmail
+            // 
+            ColunaEmail.HeaderText = "Email";
+            ColunaEmail.Name = "ColunaEmail";
+            // 
+            // columnAtividade
+            // 
+            columnAtividade.HeaderText = "Status";
+            columnAtividade.Name = "columnAtividade";
+            columnAtividade.Text = "Status";
+            // 
             // TelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -412,9 +413,6 @@
         private TextBox txtUser;
         private Button btnRegister;
         private DataGridView dgvUsers;
-        private DataGridViewTextBoxColumn ColunaNome;
-        private DataGridViewTextBoxColumn ColunaEmail;
-        private DataGridViewButtonColumn ColunaRemover;
         private DataGridView dgvRelatorio;
         private MaskedTextBox txtDatainicial;
         private MaskedTextBox txtDatafinal;
@@ -431,5 +429,8 @@
         private DataGridViewTextBoxColumn columnCausaRaiz;
         private DataGridViewTextBoxColumn columnPrioridade;
         private DataGridViewButtonColumn columnStatus;
+        private DataGridViewTextBoxColumn ColunaNome;
+        private DataGridViewTextBoxColumn ColunaEmail;
+        private DataGridViewButtonColumn columnAtividade;
     }
 }
