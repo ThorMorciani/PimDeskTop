@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabControl1 = new TabControl();
+            tbcMenu = new TabControl();
             tabPageCadastro = new TabPage();
             dgvUsers = new DataGridView();
             ColunaNome = new DataGridViewTextBoxColumn();
@@ -45,29 +45,42 @@
             txtEmail = new TextBox();
             txtName = new TextBox();
             txtUser = new TextBox();
-            tabPage2 = new TabPage();
-            dataGridView1 = new DataGridView();
-            txtDatainicial = new MaskedTextBox();
-            lblDatainicial = new Label();
-            txtDatafinal = new MaskedTextBox();
-            lblDatafinal = new Label();
+            tbpRelatorio = new TabPage();
             btnGerarRelatorio = new Button();
-            tabControl1.SuspendLayout();
+            lblDatafinal = new Label();
+            txtDatafinal = new MaskedTextBox();
+            lblDatainicial = new Label();
+            txtDatainicial = new MaskedTextBox();
+            dgvRelatorio = new DataGridView();
+            tbpCausasRaiz = new TabPage();
+            btnCadastrarCausaRaiz = new Button();
+            cboPrioridade = new ComboBox();
+            label7 = new Label();
+            label6 = new Label();
+            txtNomeCausaRaiz = new TextBox();
+            dgvCausaRaiz = new DataGridView();
+            columnCausaRaiz = new DataGridViewTextBoxColumn();
+            columnPrioridade = new DataGridViewTextBoxColumn();
+            columnStatus = new DataGridViewButtonColumn();
+            tbcMenu.SuspendLayout();
             tabPageCadastro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
-            tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tbpRelatorio.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvRelatorio).BeginInit();
+            tbpCausasRaiz.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCausaRaiz).BeginInit();
             SuspendLayout();
             // 
-            // tabControl1
+            // tbcMenu
             // 
-            tabControl1.Controls.Add(tabPageCadastro);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(1, 0);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1342, 646);
-            tabControl1.TabIndex = 0;
+            tbcMenu.Controls.Add(tabPageCadastro);
+            tbcMenu.Controls.Add(tbpRelatorio);
+            tbcMenu.Controls.Add(tbpCausasRaiz);
+            tbcMenu.Location = new Point(1, 0);
+            tbcMenu.Name = "tbcMenu";
+            tbcMenu.SelectedIndex = 0;
+            tbcMenu.Size = new Size(1342, 646);
+            tbcMenu.TabIndex = 0;
             // 
             // tabPageCadastro
             // 
@@ -207,29 +220,57 @@
             txtUser.Size = new Size(300, 23);
             txtUser.TabIndex = 0;
             // 
-            // tabPage2
+            // tbpRelatorio
             // 
-            tabPage2.Controls.Add(btnGerarRelatorio);
-            tabPage2.Controls.Add(lblDatafinal);
-            tabPage2.Controls.Add(txtDatafinal);
-            tabPage2.Controls.Add(lblDatainicial);
-            tabPage2.Controls.Add(txtDatainicial);
-            tabPage2.Controls.Add(dataGridView1);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1334, 618);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Relatórios";
-            tabPage2.UseVisualStyleBackColor = true;
+            tbpRelatorio.Controls.Add(btnGerarRelatorio);
+            tbpRelatorio.Controls.Add(lblDatafinal);
+            tbpRelatorio.Controls.Add(txtDatafinal);
+            tbpRelatorio.Controls.Add(lblDatainicial);
+            tbpRelatorio.Controls.Add(txtDatainicial);
+            tbpRelatorio.Controls.Add(dgvRelatorio);
+            tbpRelatorio.Location = new Point(4, 24);
+            tbpRelatorio.Name = "tbpRelatorio";
+            tbpRelatorio.Padding = new Padding(3);
+            tbpRelatorio.Size = new Size(1334, 618);
+            tbpRelatorio.TabIndex = 1;
+            tbpRelatorio.Text = "Relatórios";
+            tbpRelatorio.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // btnGerarRelatorio
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(290, 30);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(995, 511);
-            dataGridView1.TabIndex = 0;
+            btnGerarRelatorio.Location = new Point(22, 179);
+            btnGerarRelatorio.Name = "btnGerarRelatorio";
+            btnGerarRelatorio.Size = new Size(138, 23);
+            btnGerarRelatorio.TabIndex = 5;
+            btnGerarRelatorio.Text = "Gerar Relatório";
+            btnGerarRelatorio.UseVisualStyleBackColor = true;
+            // 
+            // lblDatafinal
+            // 
+            lblDatafinal.AutoSize = true;
+            lblDatafinal.Location = new Point(22, 102);
+            lblDatafinal.Name = "lblDatafinal";
+            lblDatafinal.Size = new Size(57, 15);
+            lblDatafinal.TabIndex = 4;
+            lblDatafinal.Text = "Data final";
+            // 
+            // txtDatafinal
+            // 
+            txtDatafinal.Location = new Point(22, 120);
+            txtDatafinal.Mask = "00/00/0000";
+            txtDatafinal.Name = "txtDatafinal";
+            txtDatafinal.Size = new Size(138, 23);
+            txtDatafinal.TabIndex = 3;
+            txtDatafinal.ValidatingType = typeof(DateTime);
+            // 
+            // lblDatainicial
+            // 
+            lblDatainicial.AutoSize = true;
+            lblDatainicial.Location = new Point(22, 30);
+            lblDatainicial.Name = "lblDatainicial";
+            lblDatainicial.Size = new Size(65, 15);
+            lblDatainicial.TabIndex = 2;
+            lblDatainicial.Text = "Data inicial";
             // 
             // txtDatainicial
             // 
@@ -241,65 +282,124 @@
             txtDatainicial.ValidatingType = typeof(DateTime);
             txtDatainicial.MaskInputRejected += txtData_MaskInputRejected;
             // 
-            // lblDatainicial
+            // dgvRelatorio
             // 
-            lblDatainicial.AutoSize = true;
-            lblDatainicial.Location = new Point(22, 30);
-            lblDatainicial.Name = "lblDatainicial";
-            lblDatainicial.Size = new Size(65, 15);
-            lblDatainicial.TabIndex = 2;
-            lblDatainicial.Text = "Data inicial";
+            dgvRelatorio.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRelatorio.Location = new Point(290, 30);
+            dgvRelatorio.Name = "dgvRelatorio";
+            dgvRelatorio.Size = new Size(995, 511);
+            dgvRelatorio.TabIndex = 0;
             // 
-            // txtDatafinal
+            // tbpCausasRaiz
             // 
-            txtDatafinal.Location = new Point(22, 120);
-            txtDatafinal.Mask = "00/00/0000";
-            txtDatafinal.Name = "txtDatafinal";
-            txtDatafinal.Size = new Size(138, 23);
-            txtDatafinal.TabIndex = 3;
-            txtDatafinal.ValidatingType = typeof(DateTime);
+            tbpCausasRaiz.Controls.Add(btnCadastrarCausaRaiz);
+            tbpCausasRaiz.Controls.Add(cboPrioridade);
+            tbpCausasRaiz.Controls.Add(label7);
+            tbpCausasRaiz.Controls.Add(label6);
+            tbpCausasRaiz.Controls.Add(txtNomeCausaRaiz);
+            tbpCausasRaiz.Controls.Add(dgvCausaRaiz);
+            tbpCausasRaiz.Location = new Point(4, 24);
+            tbpCausasRaiz.Name = "tbpCausasRaiz";
+            tbpCausasRaiz.Size = new Size(1334, 618);
+            tbpCausasRaiz.TabIndex = 2;
+            tbpCausasRaiz.Text = "Cadastro de Causas Raíz";
+            tbpCausasRaiz.UseVisualStyleBackColor = true;
             // 
-            // lblDatafinal
+            // btnCadastrarCausaRaiz
             // 
-            lblDatafinal.AutoSize = true;
-            lblDatafinal.Location = new Point(22, 102);
-            lblDatafinal.Name = "lblDatafinal";
-            lblDatafinal.Size = new Size(57, 15);
-            lblDatafinal.TabIndex = 4;
-            lblDatafinal.Text = "Data final";
+            btnCadastrarCausaRaiz.Location = new Point(19, 172);
+            btnCadastrarCausaRaiz.Name = "btnCadastrarCausaRaiz";
+            btnCadastrarCausaRaiz.Size = new Size(191, 23);
+            btnCadastrarCausaRaiz.TabIndex = 5;
+            btnCadastrarCausaRaiz.Text = "Cadastrar Causa Raíz";
+            btnCadastrarCausaRaiz.UseVisualStyleBackColor = true;
+            btnCadastrarCausaRaiz.Click += btnCadastrarCausaRaiz_Click;
             // 
-            // btnGerarRelatorio
+            // cboPrioridade
             // 
-            btnGerarRelatorio.Location = new Point(22, 179);
-            btnGerarRelatorio.Name = "btnGerarRelatorio";
-            btnGerarRelatorio.Size = new Size(138, 23);
-            btnGerarRelatorio.TabIndex = 5;
-            btnGerarRelatorio.Text = "Gerar Relatório";
-            btnGerarRelatorio.UseVisualStyleBackColor = true;
+            cboPrioridade.FormattingEnabled = true;
+            cboPrioridade.Items.AddRange(new object[] { "Alto", "Médio", "Baixo" });
+            cboPrioridade.Location = new Point(19, 114);
+            cboPrioridade.Name = "cboPrioridade";
+            cboPrioridade.Size = new Size(191, 23);
+            cboPrioridade.TabIndex = 4;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(19, 85);
+            label7.Name = "label7";
+            label7.Size = new Size(107, 15);
+            label7.TabIndex = 3;
+            label7.Text = "Nível de Prioridade";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(19, 26);
+            label6.Name = "label6";
+            label6.Size = new Size(99, 15);
+            label6.TabIndex = 2;
+            label6.Text = "Nome Causa Raíz";
+            // 
+            // txtNomeCausaRaiz
+            // 
+            txtNomeCausaRaiz.Location = new Point(19, 49);
+            txtNomeCausaRaiz.Name = "txtNomeCausaRaiz";
+            txtNomeCausaRaiz.Size = new Size(191, 23);
+            txtNomeCausaRaiz.TabIndex = 1;
+            // 
+            // dgvCausaRaiz
+            // 
+            dgvCausaRaiz.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCausaRaiz.Columns.AddRange(new DataGridViewColumn[] { columnCausaRaiz, columnPrioridade, columnStatus });
+            dgvCausaRaiz.Location = new Point(397, 26);
+            dgvCausaRaiz.Name = "dgvCausaRaiz";
+            dgvCausaRaiz.Size = new Size(903, 510);
+            dgvCausaRaiz.TabIndex = 0;
+            dgvCausaRaiz.CellContentClick += dgvCausaRaiz_CellContentClick;
+            // 
+            // columnCausaRaiz
+            // 
+            columnCausaRaiz.HeaderText = "Nome Causa Raíz";
+            columnCausaRaiz.Name = "columnCausaRaiz";
+            // 
+            // columnPrioridade
+            // 
+            columnPrioridade.HeaderText = "Prioridade";
+            columnPrioridade.Name = "columnPrioridade";
+            // 
+            // columnStatus
+            // 
+            columnStatus.HeaderText = "Status";
+            columnStatus.Name = "columnStatus";
             // 
             // TelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1355, 640);
-            Controls.Add(tabControl1);
+            Controls.Add(tbcMenu);
             Name = "TelaInicial";
             Text = "TelaInicial";
-            tabControl1.ResumeLayout(false);
+            tbcMenu.ResumeLayout(false);
             tabPageCadastro.ResumeLayout(false);
             tabPageCadastro.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
-            tabPage2.ResumeLayout(false);
-            tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tbpRelatorio.ResumeLayout(false);
+            tbpRelatorio.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvRelatorio).EndInit();
+            tbpCausasRaiz.ResumeLayout(false);
+            tbpCausasRaiz.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCausaRaiz).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TabControl tabControl1;
+        private TabControl tbcMenu;
         private TabPage tabPageCadastro;
-        private TabPage tabPage2;
+        private TabPage tbpRelatorio;
         private Label label5;
         private Label label4;
         private Label label3;
@@ -315,11 +415,21 @@
         private DataGridViewTextBoxColumn ColunaNome;
         private DataGridViewTextBoxColumn ColunaEmail;
         private DataGridViewButtonColumn ColunaRemover;
-        private DataGridView dataGridView1;
+        private DataGridView dgvRelatorio;
         private MaskedTextBox txtDatainicial;
         private MaskedTextBox txtDatafinal;
         private Label lblDatainicial;
         private Label lblDatafinal;
         private Button btnGerarRelatorio;
+        private TabPage tbpCausasRaiz;
+        private Label label7;
+        private Label label6;
+        private TextBox txtNomeCausaRaiz;
+        private DataGridView dgvCausaRaiz;
+        private Button btnCadastrarCausaRaiz;
+        private ComboBox cboPrioridade;
+        private DataGridViewTextBoxColumn columnCausaRaiz;
+        private DataGridViewTextBoxColumn columnPrioridade;
+        private DataGridViewButtonColumn columnStatus;
     }
 }
