@@ -10,17 +10,19 @@ using System.Windows.Forms;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using IAssist;
 
 
 namespace WinFormsApp1
 {
-    
+
 
     public partial class TelaInicial : Form
     {
-        
-       
-    
+        private static readonly HttpClient client = new HttpClient();
+
+
         public TelaInicial()
         {
             InitializeComponent();
@@ -36,13 +38,14 @@ namespace WinFormsApp1
             string nome = txtName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string status = "Ativo";
+            string editar = "Editar";
             if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Preencha os campos Nome e Email.");
                 return;
             }
 
-            dgvUsers.Rows.Add(nome, email, status);
+            dgvUsers.Rows.Add(nome, email, status, editar);
             txtName.Clear();
             txtEmail.Clear();
 
@@ -109,7 +112,7 @@ namespace WinFormsApp1
 
         private void dgvCausaRaiz_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
             if (e.RowIndex < 0) return;
             if (dgvCausaRaiz.Columns[e.ColumnIndex].Name != "columnStatus") return;
 
@@ -129,7 +132,7 @@ namespace WinFormsApp1
                 {
                     btnCell.Value = "Inativo";
                 }
-                
+
             }
             else
             {
@@ -145,8 +148,61 @@ namespace WinFormsApp1
                 }
             }
         }
+
+        private void tabPageCadastro_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnCarregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client.BaseAddress = new Uri("https://localhost:7158");
+
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.GetAsync("user");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    var users = JsonConvert.DeserializeObject<List<UserResponse>>(jsonResponse);
+
+                    foreach (var user in users)
+                    {
+                        int rowIndex = dgvUsers.Rows.Add();
+                        dgvUsers.Rows[rowIndex].Cells["columnName"].Value = user.Name;
+                        dgvUsers.Rows[rowIndex].Cells["columnEmail"].Value = user.Email;
+                        if (user.Active)
+                        {
+                            dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = "Ativo";
+
+                        }
+                        else
+                        {
+                            dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = "Inativo";
+                        }
+                        dgvUsers.Rows[rowIndex].Cells["columnEditar"].Value = "Editar";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+
+
+            
+        }
     }
-}
+    }
 
     
 

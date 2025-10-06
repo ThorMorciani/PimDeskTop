@@ -1,5 +1,7 @@
 using IAssist;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 
@@ -38,10 +40,16 @@ namespace WinFormsApp1
                 _accessToken = loginResponse.AccessToken;
                 _refreshToken = loginResponse.RefreshToken;
 
-                MessageBox.Show("Login realizado! Token recebido.");
-                TelaInicial telaInicial = new TelaInicial();
-                telaInicial.Show();
-
+                if (UsuarioTemRoleAdministrador(_accessToken))
+                {
+                    MessageBox.Show("Login realizado! Token recebido.");
+                    TelaInicial telaInicial = new TelaInicial();
+                    telaInicial.Show();
+                }
+                else
+                {
+                    MessageBox.Show("acesso insuficiente");
+                }
             }
             else
             {
@@ -78,9 +86,20 @@ namespace WinFormsApp1
                 }
             }
         }
+        private bool UsuarioTemRoleAdministrador(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadJwtToken(token);
+            var roles = jsonToken?.Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value)
+                .ToList();
 
-       
-        
+            return roles != null && roles.Contains("Admin") || roles.Contains("Gerente");
+        }
+
+
+
 
         private void label1_Click(object sender, EventArgs e)
         {

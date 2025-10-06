@@ -30,10 +30,8 @@
         {
             tbcMenu = new TabControl();
             tabPageCadastro = new TabPage();
+            btnCarregar = new Button();
             dgvUsers = new DataGridView();
-            ColunaNome = new DataGridViewTextBoxColumn();
-            ColunaEmail = new DataGridViewTextBoxColumn();
-            columnAtividade = new DataGridViewButtonColumn();
             btnRegister = new Button();
             lblConfirmPassword = new Label();
             lblPassword = new Label();
@@ -62,6 +60,10 @@
             columnCausaRaiz = new DataGridViewTextBoxColumn();
             columnPrioridade = new DataGridViewTextBoxColumn();
             columnStatus = new DataGridViewButtonColumn();
+            columnName = new DataGridViewTextBoxColumn();
+            columnEmail = new DataGridViewTextBoxColumn();
+            columnAtividade = new DataGridViewButtonColumn();
+            columnEditar = new DataGridViewButtonColumn();
             tbcMenu.SuspendLayout();
             tabPageCadastro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
@@ -84,6 +86,7 @@
             // 
             // tabPageCadastro
             // 
+            tabPageCadastro.Controls.Add(btnCarregar);
             tabPageCadastro.Controls.Add(dgvUsers);
             tabPageCadastro.Controls.Add(btnRegister);
             tabPageCadastro.Controls.Add(lblConfirmPassword);
@@ -103,32 +106,27 @@
             tabPageCadastro.TabIndex = 0;
             tabPageCadastro.Text = "Cadastro de Usuários";
             tabPageCadastro.UseVisualStyleBackColor = true;
+            tabPageCadastro.Click += tabPageCadastro_Click;
+            // 
+            // btnCarregar
+            // 
+            btnCarregar.Location = new Point(566, 514);
+            btnCarregar.Name = "btnCarregar";
+            btnCarregar.Size = new Size(142, 53);
+            btnCarregar.TabIndex = 12;
+            btnCarregar.Text = "carregar";
+            btnCarregar.UseVisualStyleBackColor = true;
+            btnCarregar.Click += btnCarregar_Click;
             // 
             // dgvUsers
             // 
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { ColunaNome, ColunaEmail, columnAtividade });
+            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { columnName, columnEmail, columnAtividade, columnEditar });
             dgvUsers.Location = new Point(566, 16);
             dgvUsers.Name = "dgvUsers";
             dgvUsers.Size = new Size(741, 492);
             dgvUsers.TabIndex = 11;
             dgvUsers.CellContentClick += dgvUsers_CellContentClick;
-            // 
-            // ColunaNome
-            // 
-            ColunaNome.HeaderText = "Nome";
-            ColunaNome.Name = "ColunaNome";
-            // 
-            // ColunaEmail
-            // 
-            ColunaEmail.HeaderText = "Email";
-            ColunaEmail.Name = "ColunaEmail";
-            // 
-            // columnAtividade
-            // 
-            columnAtividade.HeaderText = "Status";
-            columnAtividade.Name = "columnAtividade";
-            columnAtividade.Text = "Status";
             // 
             // btnRegister
             // 
@@ -375,6 +373,30 @@
             columnStatus.HeaderText = "Status";
             columnStatus.Name = "columnStatus";
             // 
+            // columnName
+            // 
+            columnName.HeaderText = "Nome";
+            columnName.Name = "columnName";
+            columnName.Resizable = DataGridViewTriState.True;
+            // 
+            // columnEmail
+            // 
+            columnEmail.HeaderText = "Email";
+            columnEmail.Name = "columnEmail";
+            // 
+            // columnAtividade
+            // 
+            columnAtividade.HeaderText = "Status";
+            columnAtividade.Name = "columnAtividade";
+            columnAtividade.Text = "Status";
+            // 
+            // columnEditar
+            // 
+            columnEditar.HeaderText = "Editar";
+            columnEditar.Name = "columnEditar";
+            columnEditar.Resizable = DataGridViewTriState.True;
+            columnEditar.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
             // TelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -429,8 +451,10 @@
         private DataGridViewTextBoxColumn columnCausaRaiz;
         private DataGridViewTextBoxColumn columnPrioridade;
         private DataGridViewButtonColumn columnStatus;
-        private DataGridViewTextBoxColumn ColunaNome;
-        private DataGridViewTextBoxColumn ColunaEmail;
+        private Button btnCarregar;
+        private DataGridViewTextBoxColumn columnName;
+        private DataGridViewTextBoxColumn columnEmail;
         private DataGridViewButtonColumn columnAtividade;
+        private DataGridViewButtonColumn columnEditar;
     }
 }
