@@ -60,6 +60,8 @@
             columnCausaRaiz = new DataGridViewTextBoxColumn();
             columnPrioridade = new DataGridViewTextBoxColumn();
             columnStatus = new DataGridViewButtonColumn();
+            columnID = new DataGridViewTextBoxColumn();
+            columnPerfil = new DataGridViewTextBoxColumn();
             columnName = new DataGridViewTextBoxColumn();
             columnEmail = new DataGridViewTextBoxColumn();
             columnAtividade = new DataGridViewButtonColumn();
@@ -121,7 +123,7 @@
             // dgvUsers
             // 
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { columnName, columnEmail, columnAtividade, columnEditar });
+            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { columnID, columnPerfil, columnName, columnEmail, columnAtividade, columnEditar });
             dgvUsers.Location = new Point(566, 16);
             dgvUsers.Name = "dgvUsers";
             dgvUsers.Size = new Size(741, 492);
@@ -373,6 +375,16 @@
             columnStatus.HeaderText = "Status";
             columnStatus.Name = "columnStatus";
             // 
+            // columnID
+            // 
+            columnID.HeaderText = "ID";
+            columnID.Name = "columnID";
+            // 
+            // columnPerfil
+            // 
+            columnPerfil.HeaderText = "Perfil";
+            columnPerfil.Name = "columnPerfil";
+            // 
             // columnName
             // 
             columnName.HeaderText = "Nome";
@@ -452,6 +464,8 @@
         private DataGridViewTextBoxColumn columnPrioridade;
         private DataGridViewButtonColumn columnStatus;
         private Button btnCarregar;
+        private DataGridViewTextBoxColumn columnID;
+        private DataGridViewTextBoxColumn columnPerfil;
         private DataGridViewTextBoxColumn columnName;
         private DataGridViewTextBoxColumn columnEmail;
         private DataGridViewButtonColumn columnAtividade;

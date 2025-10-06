@@ -7,55 +7,12 @@ using System.Text.Json;
 
 namespace WinFormsApp1
 {
+
     public partial class TelaLogin : Form
     {
         private string _baseUrl = "https://localhost:7158/";  
         private string _accessToken = "";
         private string _refreshToken = "";
-        public TelaLogin()
-        {
-            InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            var username = txtlogin.Text;
-            var password = txtPassword.Text;
-
-            var loginRequest = new LoginRequest
-            {
-                Username = username,
-                Password = password
-            };
-
-            var loginResponse = await FazerLoginAsync(loginRequest);
-            if (loginResponse != null)
-            {
-            
-                _accessToken = loginResponse.AccessToken;
-                _refreshToken = loginResponse.RefreshToken;
-
-                if (UsuarioTemRoleAdministrador(_accessToken))
-                {
-                    MessageBox.Show("Login realizado! Token recebido.");
-                    TelaInicial telaInicial = new TelaInicial();
-                    telaInicial.Show();
-                }
-                else
-                {
-                    MessageBox.Show("acesso insuficiente");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Falha no login. Verifique usuário e senha.");
-            }
-        }
 
         private async Task<LoginResponse> FazerLoginAsync(LoginRequest request)
         {
@@ -86,7 +43,7 @@ namespace WinFormsApp1
                 }
             }
         }
-        private bool UsuarioTemRoleAdministrador(string token)
+        private bool NivelDeAcesso(string token)
         {
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadJwtToken(token);
@@ -97,6 +54,52 @@ namespace WinFormsApp1
 
             return roles != null && roles.Contains("Admin") || roles.Contains("Gerente");
         }
+        public TelaLogin()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var username = txtlogin.Text;
+            var password = txtPassword.Text;
+
+            var loginRequest = new LoginRequest
+            {
+                Username = username,
+                Password = password
+            };
+
+            var loginResponse = await FazerLoginAsync(loginRequest);
+            if (loginResponse != null)
+            {
+            
+                _accessToken = loginResponse.AccessToken;
+                _refreshToken = loginResponse.RefreshToken;
+
+                if (NivelDeAcesso(_accessToken))
+                {
+                    MessageBox.Show("Login realizado! Token recebido.");
+                    TelaInicial telaInicial = new TelaInicial();
+                    telaInicial.Show();
+                }
+                else
+                {
+                    MessageBox.Show("acesso insuficiente");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Falha no login. Verifique usuário e senha.");
+            }
+        }
+
+        
 
 
 

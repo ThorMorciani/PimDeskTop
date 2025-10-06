@@ -174,6 +174,15 @@ namespace WinFormsApp1
                     foreach (var user in users)
                     {
                         int rowIndex = dgvUsers.Rows.Add();
+                        dgvUsers.Rows[rowIndex].Cells["columnID"].Value = user.Id;
+                        if(user.Profile == "1")
+                        {
+                            dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = "Administrador";
+                        }else if (user.Profile == "2")
+                        {
+                            dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = "Gerente";
+                        }
+
                         dgvUsers.Rows[rowIndex].Cells["columnName"].Value = user.Name;
                         dgvUsers.Rows[rowIndex].Cells["columnEmail"].Value = user.Email;
                         if (user.Active)
