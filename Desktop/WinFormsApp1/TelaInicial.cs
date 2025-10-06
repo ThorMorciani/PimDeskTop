@@ -7,11 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
 
 namespace WinFormsApp1
 {
+    
+
     public partial class TelaInicial : Form
     {
+        
+       
+    
         public TelaInicial()
         {
             InitializeComponent();
