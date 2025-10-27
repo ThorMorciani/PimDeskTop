@@ -30,8 +30,16 @@
         {
             tbcMenu = new TabControl();
             tabPageCadastro = new TabPage();
+            cboPerfis = new ComboBox();
+            lblPerfil = new Label();
             btnCarregar = new Button();
             dgvUsers = new DataGridView();
+            columnID = new DataGridViewTextBoxColumn();
+            columnPerfil = new DataGridViewTextBoxColumn();
+            columnName = new DataGridViewTextBoxColumn();
+            columnEmail = new DataGridViewTextBoxColumn();
+            columnAtividade = new DataGridViewButtonColumn();
+            columnEditar = new DataGridViewButtonColumn();
             btnRegister = new Button();
             lblConfirmPassword = new Label();
             lblPassword = new Label();
@@ -60,12 +68,6 @@
             columnCausaRaiz = new DataGridViewTextBoxColumn();
             columnPrioridade = new DataGridViewTextBoxColumn();
             columnStatus = new DataGridViewButtonColumn();
-            columnID = new DataGridViewTextBoxColumn();
-            columnPerfil = new DataGridViewTextBoxColumn();
-            columnName = new DataGridViewTextBoxColumn();
-            columnEmail = new DataGridViewTextBoxColumn();
-            columnAtividade = new DataGridViewButtonColumn();
-            columnEditar = new DataGridViewButtonColumn();
             tbcMenu.SuspendLayout();
             tabPageCadastro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
@@ -88,6 +90,8 @@
             // 
             // tabPageCadastro
             // 
+            tabPageCadastro.Controls.Add(cboPerfis);
+            tabPageCadastro.Controls.Add(lblPerfil);
             tabPageCadastro.Controls.Add(btnCarregar);
             tabPageCadastro.Controls.Add(dgvUsers);
             tabPageCadastro.Controls.Add(btnRegister);
@@ -110,6 +114,24 @@
             tabPageCadastro.UseVisualStyleBackColor = true;
             tabPageCadastro.Click += tabPageCadastro_Click;
             // 
+            // cboPerfis
+            // 
+            cboPerfis.FormattingEnabled = true;
+            cboPerfis.Items.AddRange(new object[] { "Gerente", "Funcionário" });
+            cboPerfis.Location = new Point(26, 239);
+            cboPerfis.Name = "cboPerfis";
+            cboPerfis.Size = new Size(299, 23);
+            cboPerfis.TabIndex = 15;
+            // 
+            // lblPerfil
+            // 
+            lblPerfil.AutoSize = true;
+            lblPerfil.Location = new Point(25, 210);
+            lblPerfil.Name = "lblPerfil";
+            lblPerfil.Size = new Size(34, 15);
+            lblPerfil.TabIndex = 14;
+            lblPerfil.Text = "Perfil";
+            // 
             // btnCarregar
             // 
             btnCarregar.Location = new Point(566, 514);
@@ -130,9 +152,43 @@
             dgvUsers.TabIndex = 11;
             dgvUsers.CellContentClick += dgvUsers_CellContentClick;
             // 
+            // columnID
+            // 
+            columnID.HeaderText = "ID";
+            columnID.Name = "columnID";
+            // 
+            // columnPerfil
+            // 
+            columnPerfil.HeaderText = "Perfil";
+            columnPerfil.Name = "columnPerfil";
+            // 
+            // columnName
+            // 
+            columnName.HeaderText = "Nome";
+            columnName.Name = "columnName";
+            columnName.Resizable = DataGridViewTriState.True;
+            // 
+            // columnEmail
+            // 
+            columnEmail.HeaderText = "Email";
+            columnEmail.Name = "columnEmail";
+            // 
+            // columnAtividade
+            // 
+            columnAtividade.HeaderText = "Status";
+            columnAtividade.Name = "columnAtividade";
+            columnAtividade.Text = "Status";
+            // 
+            // columnEditar
+            // 
+            columnEditar.HeaderText = "Editar";
+            columnEditar.Name = "columnEditar";
+            columnEditar.Resizable = DataGridViewTriState.True;
+            columnEditar.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
             // btnRegister
             // 
-            btnRegister.Location = new Point(25, 364);
+            btnRegister.Location = new Point(26, 514);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(300, 31);
             btnRegister.TabIndex = 10;
@@ -143,7 +199,7 @@
             // lblConfirmPassword
             // 
             lblConfirmPassword.AutoSize = true;
-            lblConfirmPassword.Location = new Point(25, 290);
+            lblConfirmPassword.Location = new Point(25, 423);
             lblConfirmPassword.Name = "lblConfirmPassword";
             lblConfirmPassword.Size = new Size(95, 15);
             lblConfirmPassword.TabIndex = 9;
@@ -152,7 +208,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(25, 226);
+            lblPassword.Location = new Point(25, 352);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(39, 15);
             lblPassword.TabIndex = 8;
@@ -161,7 +217,7 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(25, 159);
+            lblEmail.Location = new Point(26, 278);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(36, 15);
             lblEmail.TabIndex = 7;
@@ -170,7 +226,7 @@
             // lblName
             // 
             lblName.AutoSize = true;
-            lblName.Location = new Point(25, 100);
+            lblName.Location = new Point(25, 39);
             lblName.Name = "lblName";
             lblName.Size = new Size(40, 15);
             lblName.TabIndex = 6;
@@ -180,7 +236,7 @@
             // lblUser
             // 
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(25, 39);
+            lblUser.Location = new Point(25, 126);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(99, 15);
             lblUser.TabIndex = 5;
@@ -188,35 +244,35 @@
             // 
             // txtConfirmPassword
             // 
-            txtConfirmPassword.Location = new Point(25, 308);
+            txtConfirmPassword.Location = new Point(26, 453);
             txtConfirmPassword.Name = "txtConfirmPassword";
             txtConfirmPassword.Size = new Size(300, 23);
             txtConfirmPassword.TabIndex = 4;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(25, 244);
+            txtPassword.Location = new Point(26, 381);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(300, 23);
             txtPassword.TabIndex = 3;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(25, 177);
+            txtEmail.Location = new Point(26, 308);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(300, 23);
             txtEmail.TabIndex = 2;
             // 
             // txtName
             // 
-            txtName.Location = new Point(25, 118);
+            txtName.Location = new Point(25, 72);
             txtName.Name = "txtName";
             txtName.Size = new Size(300, 23);
             txtName.TabIndex = 1;
             // 
             // txtUser
             // 
-            txtUser.Location = new Point(25, 57);
+            txtUser.Location = new Point(25, 158);
             txtUser.Name = "txtUser";
             txtUser.Size = new Size(300, 23);
             txtUser.TabIndex = 0;
@@ -375,40 +431,6 @@
             columnStatus.HeaderText = "Status";
             columnStatus.Name = "columnStatus";
             // 
-            // columnID
-            // 
-            columnID.HeaderText = "ID";
-            columnID.Name = "columnID";
-            // 
-            // columnPerfil
-            // 
-            columnPerfil.HeaderText = "Perfil";
-            columnPerfil.Name = "columnPerfil";
-            // 
-            // columnName
-            // 
-            columnName.HeaderText = "Nome";
-            columnName.Name = "columnName";
-            columnName.Resizable = DataGridViewTriState.True;
-            // 
-            // columnEmail
-            // 
-            columnEmail.HeaderText = "Email";
-            columnEmail.Name = "columnEmail";
-            // 
-            // columnAtividade
-            // 
-            columnAtividade.HeaderText = "Status";
-            columnAtividade.Name = "columnAtividade";
-            columnAtividade.Text = "Status";
-            // 
-            // columnEditar
-            // 
-            columnEditar.HeaderText = "Editar";
-            columnEditar.Name = "columnEditar";
-            columnEditar.Resizable = DataGridViewTriState.True;
-            columnEditar.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
             // TelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -470,5 +492,7 @@
         private DataGridViewTextBoxColumn columnEmail;
         private DataGridViewButtonColumn columnAtividade;
         private DataGridViewButtonColumn columnEditar;
+        private ComboBox cboPerfis;
+        private Label lblPerfil;
     }
 }
