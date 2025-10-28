@@ -30,6 +30,9 @@
         {
             tbcMenu = new TabControl();
             tabPageCadastro = new TabPage();
+            lblId = new Label();
+            txtID = new TextBox();
+            btnEditar = new Button();
             cboPerfis = new ComboBox();
             lblPerfil = new Label();
             btnCarregar = new Button();
@@ -90,6 +93,9 @@
             // 
             // tabPageCadastro
             // 
+            tabPageCadastro.Controls.Add(lblId);
+            tabPageCadastro.Controls.Add(txtID);
+            tabPageCadastro.Controls.Add(btnEditar);
             tabPageCadastro.Controls.Add(cboPerfis);
             tabPageCadastro.Controls.Add(lblPerfil);
             tabPageCadastro.Controls.Add(btnCarregar);
@@ -113,6 +119,36 @@
             tabPageCadastro.Text = "Cadastro de Usuários";
             tabPageCadastro.UseVisualStyleBackColor = true;
             tabPageCadastro.Click += tabPageCadastro_Click;
+            // 
+            // lblId
+            // 
+            lblId.AutoSize = true;
+            lblId.Location = new Point(331, 39);
+            lblId.Name = "lblId";
+            lblId.Size = new Size(18, 15);
+            lblId.TabIndex = 18;
+            lblId.Text = "ID";
+            lblId.Visible = false;
+            // 
+            // txtID
+            // 
+            txtID.Enabled = false;
+            txtID.Location = new Point(331, 72);
+            txtID.Name = "txtID";
+            txtID.Size = new Size(154, 23);
+            txtID.TabIndex = 17;
+            txtID.Visible = false;
+            // 
+            // btnEditar
+            // 
+            btnEditar.Location = new Point(26, 561);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(300, 31);
+            btnEditar.TabIndex = 16;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Visible = false;
+            btnEditar.Click += btnEditar_Click;
             // 
             // cboPerfis
             // 
@@ -494,5 +530,8 @@
         private DataGridViewButtonColumn columnEditar;
         private ComboBox cboPerfis;
         private Label lblPerfil;
+        private Button btnEditar;
+        private Label lblId;
+        private TextBox txtID;
     }
 }
