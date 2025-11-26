@@ -24,11 +24,18 @@ namespace WinFormsApp1
     public partial class TelaInicial : Form
     {
         private static readonly HttpClient client = new HttpClient();
+        private List<string> _nomeUsuario;
+        private List<string> _cargoUsuario;
 
 
-        public TelaInicial()
+        public TelaInicial(List<string> nome, List<string> cargo)
         {
             InitializeComponent();
+            _nomeUsuario = nome;
+            _cargoUsuario = cargo;
+
+            txtNomeUser.Text = _nomeUsuario[0];
+            txtCargoUser.Text = _cargoUsuario[0];
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -44,11 +51,11 @@ namespace WinFormsApp1
             int perfil = 0;
             if (cboPerfis.Text.Trim() == "Gerente")
             {
-                perfil = 2;
+                perfil = 5;
             }
             else if (cboPerfis.Text.Trim() == "Funcionário")
             {
-                perfil = 3;
+                perfil = 6;
             }
             string senha = txtPassword.Text.Trim();
             string confirmSenha = txtConfirmPassword.Text.Trim();
@@ -182,8 +189,14 @@ namespace WinFormsApp1
       dgvUsers.Columns[e.ColumnIndex].Name == "columnEditar")
             {
                 btnEditar.Visible = true;
+                btnRegister.Visible = false;
+                txtPassword.Visible = false;
+                txtConfirmPassword.Visible = false;
+                lblConfirmPassword.Visible = false;
+                lblPassword.Visible = false;
                 lblId.Visible = true;
                 txtID.Visible = true;
+
                 object value = dgvUsers.Rows[e.RowIndex].Cells["columnID"].Value;
                 if (value != null && long.TryParse(value.ToString(), out long userId))
                 {
@@ -199,16 +212,15 @@ namespace WinFormsApp1
                             if (response.IsSuccessStatusCode)
                             {
                                 var json = await response.Content.ReadAsStringAsync();
-                                var users = JsonConvert.DeserializeObject<List<UserResponse>>(json);
-                                var user = users?.FirstOrDefault(); // Obtém o primeiro usuário da lista
+                                var user = JsonConvert.DeserializeObject<UserResponse>(json);
 
                                 if (user != null)
                                 {
-                                    // Preenche os campos no formulário
+
                                     txtID.Text = user.Id.ToString();
                                     txtName.Text = user.Name;
                                     txtUser.Text = user.Username;
-                                    cboPerfis.Text = user.Profile;
+                                    cboPerfis.Text = user.Profile.ProfileName;
                                 }
                                 else
                                 {
@@ -304,57 +316,6 @@ namespace WinFormsApp1
 
         private async void btnCarregar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                client.BaseAddress = new Uri("https://localhost:7158");
-
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = await client.GetAsync("user");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    var users = JsonConvert.DeserializeObject<List<UserResponse>>(jsonResponse);
-
-                    foreach (var user in users)
-                    {
-                        int rowIndex = dgvUsers.Rows.Add();
-                        dgvUsers.Rows[rowIndex].Cells["columnID"].Value = user.Id;
-                        if (user.Profile == "1")
-                        {
-                            dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = "Administrador";
-                        }
-                        else if (user.Profile == "2")
-                        {
-                            dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = "Gerente";
-                        }
-
-                        dgvUsers.Rows[rowIndex].Cells["columnName"].Value = user.Name;
-                        dgvUsers.Rows[rowIndex].Cells["columnEmail"].Value = user.Email;
-                        if (user.Active)
-                        {
-                            dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = "Ativo";
-
-                        }
-                        else
-                        {
-                            dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = "Inativo";
-                        }
-                        dgvUsers.Rows[rowIndex].Cells["columnEditar"].Value = "Editar";
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-            }
 
 
 
@@ -376,6 +337,7 @@ namespace WinFormsApp1
             // Lê os valores dos campos
             string name = txtName.Text;
             string username = txtUser.Text;
+            string password = txtPassword.Text;
             string email = txtEmail.Text;
             string profile = cboPerfis.Text;
 
@@ -387,34 +349,43 @@ namespace WinFormsApp1
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     long perfil = 0;
-                    // Monta o objeto de requisição
+
                     if (cboPerfis.Text == "Gerente")
                     {
-                        perfil = 2;
-                    }else if(cboPerfis.Text == "Funcionário")
-                    {
-                        perfil = 3;
+                        perfil = 5;
                     }
-                        var userRequest = new UserPutRequest
-                        {
-                            Id = userId,
-                            Name = name,
-                            Username = username,
-                            Email = email,
-                            ProfileId = perfil,
-                        };
+                    else if (cboPerfis.Text == "Funcionário")
+                    {
+                        perfil = 6;
+                    }
+                    var userRequest = new UserPutRequest
+                    {
+                        Id = userId,
+                        Name = name,
+                        Username = username,
+                        Password = password,
+                        Email = email,
+                        ProfileId = perfil,
+                    };
 
-                    // Serializa para JSON
+
                     var jsonContent = JsonConvert.SerializeObject(userRequest);
                     var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                    // Envia a requisição PUT
+
                     HttpResponseMessage response = await client.PutAsync("User", content);
 
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("Usuário atualizado com sucesso!");
-                        // Aqui você pode atualizar a DataGridView ou limpar campos
+                        txtID.Visible = false;
+                        lblId.Visible = false;
+                        btnEditar.Visible = false;
+                        btnRegister.Visible = true;
+                        txtPassword.Visible = true;
+                        txtConfirmPassword.Visible = true;
+                        lblConfirmPassword.Visible = true;
+                        lblPassword.Visible = true;
                     }
                     else
                     {
@@ -427,9 +398,215 @@ namespace WinFormsApp1
             {
                 MessageBox.Show($"Erro interno na atualização: {ex.Message}");
             }
-            txtID.Visible = false;
-            lblId.Visible = false;
-            btnEditar.Visible = false;
+
+        }
+
+        private async void TelaInicial_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:7158/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = await client.GetAsync("user");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show(jsonResponse);
+                        var users = JsonConvert.DeserializeObject<List<UserResponse>>(jsonResponse);
+
+                        dgvUsers.Rows.Clear();
+
+                        foreach (var user in users)
+                        {
+                            int rowIndex = dgvUsers.Rows.Add();
+                            dgvUsers.Rows[rowIndex].Cells["columnID"].Value = user.Id;
+                            dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = user.Profile.ProfileName;
+                            dgvUsers.Rows[rowIndex].Cells["columnName"].Value = user.Name;
+                            dgvUsers.Rows[rowIndex].Cells["columnEmail"].Value = user.Email;
+                            dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = user.Active ? "Ativo" : "Inativo";
+                            dgvUsers.Rows[rowIndex].Cells["columnEditar"].Value = "Editar";
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:7158/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = await client.GetAsync("ticket");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        var tickets = JsonConvert.DeserializeObject<List<TicketResponse>>(jsonResponse);
+
+                        dgvTickets.Rows.Clear(); // limpa a tabela antes de preencher novamente (opcional)
+
+                        foreach (var ticket in tickets)
+                        {
+                            int rowIndex = dgvTickets.Rows.Add();
+                            dgvTickets.Rows[rowIndex].Cells["columnIdTicket"].Value = ticket.TicketNumber;
+                            dgvTickets.Rows[rowIndex].Cells["columnTicketStatus"].Value = ticket.Status;
+                            dgvTickets.Rows[rowIndex].Cells["columnCriticidade"].Value = ticket.RootCause.Criticality;
+                            dgvTickets.Rows[rowIndex].Cells["columnTecnico"].Value = ticket.Reporter.Name;
+                            dgvTickets.Rows[rowIndex].Cells["columnCause"].Value = ticket.RootCause.RootCauseName;
+                            dgvTickets.Rows[rowIndex].Cells["columnVisualizar"].Value = "Visualizar";
+
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+
+
+
+
+        }
+
+        private void lblNomeUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeslogar_Click(object sender, EventArgs e)
+        {
+            var telaLogin = new TelaLogin();
+            this.Close();
+            telaLogin.Show();
+
+        }
+
+        private async void button1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:7158/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = await client.GetAsync("user");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        var users = JsonConvert.DeserializeObject<List<UserResponse>>(jsonResponse);
+
+                        dgvUsers.Rows.Clear(); // limpa a tabela antes de preencher novamente (opcional)
+
+                        foreach (var user in users)
+                        {
+                            int rowIndex = dgvUsers.Rows.Add();
+                            dgvUsers.Rows[rowIndex].Cells["columnID"].Value = user.Id;
+                            dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = user.Profile.ProfileName;
+                            dgvUsers.Rows[rowIndex].Cells["columnName"].Value = user.Name;
+                            dgvUsers.Rows[rowIndex].Cells["columnEmail"].Value = user.Email;
+                            dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = user.Active ? "Ativo" : "Inativo";
+                            dgvUsers.Rows[rowIndex].Cells["columnEditar"].Value = "Editar";
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+        }
+
+        private void tabPerfil_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void dgvTickets_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvTickets.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+      dgvTickets.Columns[e.ColumnIndex].Name == "columnVisualizar")
+            {
+                object value = dgvTickets.Rows[e.RowIndex].Cells["columnIdTicket"].Value;
+                MessageBox.Show(value.ToString());
+                if (value != null)
+                {
+                    try
+                    {
+                        using (var client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri("https://localhost:7158/");
+                            client.DefaultRequestHeaders.Accept.Clear();
+                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                            HttpResponseMessage response = await client.GetAsync($"Ticket/{value.ToString()}");
+                            if (response.IsSuccessStatusCode)
+                            {
+                                var json = await response.Content.ReadAsStringAsync();
+                                var ticket = JsonConvert.DeserializeObject<TicketResponse>(json);
+
+                                if (ticket != null)
+                                {
+
+                                    txtIdTicket.Text = ticket.Id.ToString();
+                                    txtStatus.Text = ticket.Status;
+                                    txtDescription.Text = ticket.Description;
+
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ticket não encontrado.");
+                                }
+                            }
+                            else
+                            {
+                                string msg = await response.Content.ReadAsStringAsync();
+                                MessageBox.Show($"Erro ao buscar ticket: {msg}");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro interno: {ex.Message}");
+                    }
+                }
+            }
         }
     }
 }

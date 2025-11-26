@@ -28,14 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaInicial));
             tbcMenu = new TabControl();
+            tabPerfil = new TabPage();
+            btnDeslogar = new Button();
+            txtCargoUser = new TextBox();
+            txtNomeUser = new TextBox();
+            label2 = new Label();
+            label1 = new Label();
+            pictureBox1 = new PictureBox();
             tabPageCadastro = new TabPage();
+            button1 = new Button();
             lblId = new Label();
             txtID = new TextBox();
             btnEditar = new Button();
             cboPerfis = new ComboBox();
             lblPerfil = new Label();
-            btnCarregar = new Button();
             dgvUsers = new DataGridView();
             columnID = new DataGridViewTextBoxColumn();
             columnPerfil = new DataGridViewTextBoxColumn();
@@ -71,34 +79,126 @@
             columnCausaRaiz = new DataGridViewTextBoxColumn();
             columnPrioridade = new DataGridViewTextBoxColumn();
             columnStatus = new DataGridViewButtonColumn();
+            tabTicket = new TabPage();
+            lblDescricaoTicket = new Label();
+            lblStatusTicket = new Label();
+            lblIdTicket = new Label();
+            txtStatus = new TextBox();
+            txtDescription = new TextBox();
+            txtIdTicket = new TextBox();
+            dgvTickets = new DataGridView();
+            columnIdTicket = new DataGridViewTextBoxColumn();
+            columnCause = new DataGridViewTextBoxColumn();
+            columnTicketStatus = new DataGridViewTextBoxColumn();
+            columnCriticidade = new DataGridViewTextBoxColumn();
+            columnTecnico = new DataGridViewTextBoxColumn();
+            columnVisualizar = new DataGridViewButtonColumn();
             tbcMenu.SuspendLayout();
+            tabPerfil.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tabPageCadastro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             tbpRelatorio.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRelatorio).BeginInit();
             tbpCausasRaiz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCausaRaiz).BeginInit();
+            tabTicket.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTickets).BeginInit();
             SuspendLayout();
             // 
             // tbcMenu
             // 
+            tbcMenu.Controls.Add(tabPerfil);
             tbcMenu.Controls.Add(tabPageCadastro);
             tbcMenu.Controls.Add(tbpRelatorio);
             tbcMenu.Controls.Add(tbpCausasRaiz);
+            tbcMenu.Controls.Add(tabTicket);
             tbcMenu.Location = new Point(1, 0);
             tbcMenu.Name = "tbcMenu";
             tbcMenu.SelectedIndex = 0;
             tbcMenu.Size = new Size(1342, 646);
             tbcMenu.TabIndex = 0;
             // 
+            // tabPerfil
+            // 
+            tabPerfil.Controls.Add(btnDeslogar);
+            tabPerfil.Controls.Add(txtCargoUser);
+            tabPerfil.Controls.Add(txtNomeUser);
+            tabPerfil.Controls.Add(label2);
+            tabPerfil.Controls.Add(label1);
+            tabPerfil.Controls.Add(pictureBox1);
+            tabPerfil.Location = new Point(4, 24);
+            tabPerfil.Name = "tabPerfil";
+            tabPerfil.Size = new Size(1334, 618);
+            tabPerfil.TabIndex = 3;
+            tabPerfil.Text = "Perfil";
+            tabPerfil.UseVisualStyleBackColor = true;
+            tabPerfil.Click += tabPerfil_Click;
+            // 
+            // btnDeslogar
+            // 
+            btnDeslogar.Location = new Point(32, 326);
+            btnDeslogar.Name = "btnDeslogar";
+            btnDeslogar.Size = new Size(171, 23);
+            btnDeslogar.TabIndex = 7;
+            btnDeslogar.Text = "Deslogar";
+            btnDeslogar.UseVisualStyleBackColor = true;
+            btnDeslogar.Click += btnDeslogar_Click;
+            // 
+            // txtCargoUser
+            // 
+            txtCargoUser.Enabled = false;
+            txtCargoUser.Location = new Point(32, 281);
+            txtCargoUser.Name = "txtCargoUser";
+            txtCargoUser.Size = new Size(171, 23);
+            txtCargoUser.TabIndex = 6;
+            // 
+            // txtNomeUser
+            // 
+            txtNomeUser.Enabled = false;
+            txtNomeUser.Location = new Point(32, 221);
+            txtNomeUser.Name = "txtNomeUser";
+            txtNomeUser.Size = new Size(171, 23);
+            txtNomeUser.TabIndex = 5;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(31, 203);
+            label2.Name = "label2";
+            label2.Size = new Size(43, 15);
+            label2.TabIndex = 4;
+            label2.Text = "Nome:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(31, 263);
+            label1.Name = "label1";
+            label1.Size = new Size(42, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Cargo:";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.ErrorImage = null;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(31, 25);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(172, 158);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
             // tabPageCadastro
             // 
+            tabPageCadastro.Controls.Add(button1);
             tabPageCadastro.Controls.Add(lblId);
             tabPageCadastro.Controls.Add(txtID);
             tabPageCadastro.Controls.Add(btnEditar);
             tabPageCadastro.Controls.Add(cboPerfis);
             tabPageCadastro.Controls.Add(lblPerfil);
-            tabPageCadastro.Controls.Add(btnCarregar);
             tabPageCadastro.Controls.Add(dgvUsers);
             tabPageCadastro.Controls.Add(btnRegister);
             tabPageCadastro.Controls.Add(lblConfirmPassword);
@@ -119,6 +219,16 @@
             tabPageCadastro.Text = "Cadastro de Usuários";
             tabPageCadastro.UseVisualStyleBackColor = true;
             tabPageCadastro.Click += tabPageCadastro_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(566, 522);
+            button1.Name = "button1";
+            button1.Size = new Size(136, 34);
+            button1.TabIndex = 19;
+            button1.Text = "Atualizar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
             // lblId
             // 
@@ -141,7 +251,8 @@
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(26, 561);
+            btnEditar.Cursor = Cursors.Hand;
+            btnEditar.Location = new Point(26, 370);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(300, 31);
             btnEditar.TabIndex = 16;
@@ -167,16 +278,6 @@
             lblPerfil.Size = new Size(34, 15);
             lblPerfil.TabIndex = 14;
             lblPerfil.Text = "Perfil";
-            // 
-            // btnCarregar
-            // 
-            btnCarregar.Location = new Point(566, 514);
-            btnCarregar.Name = "btnCarregar";
-            btnCarregar.Size = new Size(142, 53);
-            btnCarregar.TabIndex = 12;
-            btnCarregar.Text = "carregar";
-            btnCarregar.UseVisualStyleBackColor = true;
-            btnCarregar.Click += btnCarregar_Click;
             // 
             // dgvUsers
             // 
@@ -224,6 +325,7 @@
             // 
             // btnRegister
             // 
+            btnRegister.Cursor = Cursors.Hand;
             btnRegister.Location = new Point(26, 514);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(300, 31);
@@ -284,6 +386,7 @@
             txtConfirmPassword.Name = "txtConfirmPassword";
             txtConfirmPassword.Size = new Size(300, 23);
             txtConfirmPassword.TabIndex = 4;
+            txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // txtPassword
             // 
@@ -291,6 +394,7 @@
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(300, 23);
             txtPassword.TabIndex = 3;
+            txtPassword.UseSystemPasswordChar = true;
             // 
             // txtEmail
             // 
@@ -331,6 +435,7 @@
             // 
             // btnGerarRelatorio
             // 
+            btnGerarRelatorio.Cursor = Cursors.Hand;
             btnGerarRelatorio.Location = new Point(22, 179);
             btnGerarRelatorio.Name = "btnGerarRelatorio";
             btnGerarRelatorio.Size = new Size(138, 23);
@@ -400,6 +505,7 @@
             // 
             // btnCadastrarCausaRaiz
             // 
+            btnCadastrarCausaRaiz.Cursor = Cursors.Hand;
             btnCadastrarCausaRaiz.Location = new Point(19, 172);
             btnCadastrarCausaRaiz.Name = "btnCadastrarCausaRaiz";
             btnCadastrarCausaRaiz.Size = new Size(191, 23);
@@ -467,6 +573,114 @@
             columnStatus.HeaderText = "Status";
             columnStatus.Name = "columnStatus";
             // 
+            // tabTicket
+            // 
+            tabTicket.Controls.Add(lblDescricaoTicket);
+            tabTicket.Controls.Add(lblStatusTicket);
+            tabTicket.Controls.Add(lblIdTicket);
+            tabTicket.Controls.Add(txtStatus);
+            tabTicket.Controls.Add(txtDescription);
+            tabTicket.Controls.Add(txtIdTicket);
+            tabTicket.Controls.Add(dgvTickets);
+            tabTicket.Location = new Point(4, 24);
+            tabTicket.Name = "tabTicket";
+            tabTicket.Size = new Size(1334, 618);
+            tabTicket.TabIndex = 4;
+            tabTicket.Text = "Ticket";
+            tabTicket.UseVisualStyleBackColor = true;
+            // 
+            // lblDescricaoTicket
+            // 
+            lblDescricaoTicket.AutoSize = true;
+            lblDescricaoTicket.Location = new Point(18, 143);
+            lblDescricaoTicket.Name = "lblDescricaoTicket";
+            lblDescricaoTicket.Size = new Size(58, 15);
+            lblDescricaoTicket.TabIndex = 6;
+            lblDescricaoTicket.Text = "Descrição";
+            // 
+            // lblStatusTicket
+            // 
+            lblStatusTicket.AutoSize = true;
+            lblStatusTicket.Location = new Point(18, 75);
+            lblStatusTicket.Name = "lblStatusTicket";
+            lblStatusTicket.Size = new Size(39, 15);
+            lblStatusTicket.TabIndex = 5;
+            lblStatusTicket.Text = "Status";
+            // 
+            // lblIdTicket
+            // 
+            lblIdTicket.AutoSize = true;
+            lblIdTicket.Location = new Point(18, 16);
+            lblIdTicket.Name = "lblIdTicket";
+            lblIdTicket.Size = new Size(53, 15);
+            lblIdTicket.TabIndex = 4;
+            lblIdTicket.Text = "ID Ticket";
+            // 
+            // txtStatus
+            // 
+            txtStatus.Enabled = false;
+            txtStatus.Location = new Point(18, 93);
+            txtStatus.Name = "txtStatus";
+            txtStatus.Size = new Size(100, 23);
+            txtStatus.TabIndex = 3;
+            // 
+            // txtDescription
+            // 
+            txtDescription.Enabled = false;
+            txtDescription.Location = new Point(18, 161);
+            txtDescription.Multiline = true;
+            txtDescription.Name = "txtDescription";
+            txtDescription.Size = new Size(379, 364);
+            txtDescription.TabIndex = 2;
+            // 
+            // txtIdTicket
+            // 
+            txtIdTicket.Enabled = false;
+            txtIdTicket.Location = new Point(18, 40);
+            txtIdTicket.Name = "txtIdTicket";
+            txtIdTicket.Size = new Size(100, 23);
+            txtIdTicket.TabIndex = 1;
+            // 
+            // dgvTickets
+            // 
+            dgvTickets.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTickets.Columns.AddRange(new DataGridViewColumn[] { columnIdTicket, columnCause, columnTicketStatus, columnCriticidade, columnTecnico, columnVisualizar });
+            dgvTickets.Location = new Point(415, 16);
+            dgvTickets.Name = "dgvTickets";
+            dgvTickets.Size = new Size(707, 509);
+            dgvTickets.TabIndex = 0;
+            dgvTickets.CellContentClick += dgvTickets_CellContentClick;
+            // 
+            // columnIdTicket
+            // 
+            columnIdTicket.HeaderText = "ID";
+            columnIdTicket.Name = "columnIdTicket";
+            // 
+            // columnCause
+            // 
+            columnCause.HeaderText = "Causa Raíz";
+            columnCause.Name = "columnCause";
+            // 
+            // columnTicketStatus
+            // 
+            columnTicketStatus.HeaderText = "Status";
+            columnTicketStatus.Name = "columnTicketStatus";
+            // 
+            // columnCriticidade
+            // 
+            columnCriticidade.HeaderText = "Criticidade";
+            columnCriticidade.Name = "columnCriticidade";
+            // 
+            // columnTecnico
+            // 
+            columnTecnico.HeaderText = "Técnico Responsável";
+            columnTecnico.Name = "columnTecnico";
+            // 
+            // columnVisualizar
+            // 
+            columnVisualizar.HeaderText = "Visualizar";
+            columnVisualizar.Name = "columnVisualizar";
+            // 
             // TelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -475,7 +689,11 @@
             Controls.Add(tbcMenu);
             Name = "TelaInicial";
             Text = "TelaInicial";
+            Load += TelaInicial_Load;
             tbcMenu.ResumeLayout(false);
+            tabPerfil.ResumeLayout(false);
+            tabPerfil.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tabPageCadastro.ResumeLayout(false);
             tabPageCadastro.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
@@ -485,6 +703,9 @@
             tbpCausasRaiz.ResumeLayout(false);
             tbpCausasRaiz.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCausaRaiz).EndInit();
+            tabTicket.ResumeLayout(false);
+            tabTicket.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTickets).EndInit();
             ResumeLayout(false);
         }
 
@@ -521,7 +742,6 @@
         private DataGridViewTextBoxColumn columnCausaRaiz;
         private DataGridViewTextBoxColumn columnPrioridade;
         private DataGridViewButtonColumn columnStatus;
-        private Button btnCarregar;
         private DataGridViewTextBoxColumn columnID;
         private DataGridViewTextBoxColumn columnPerfil;
         private DataGridViewTextBoxColumn columnName;
@@ -533,5 +753,27 @@
         private Button btnEditar;
         private Label lblId;
         private TextBox txtID;
+        private TabPage tabPerfil;
+        private PictureBox pictureBox1;
+        private Label label2;
+        private Label label1;
+        private TextBox txtCargoUser;
+        private TextBox txtNomeUser;
+        private Button btnDeslogar;
+        private Button button1;
+        private TabPage tabTicket;
+        private TextBox txtDescription;
+        private TextBox txtIdTicket;
+        private DataGridView dgvTickets;
+        private TextBox txtStatus;
+        private Label lblDescricaoTicket;
+        private Label lblStatusTicket;
+        private Label lblIdTicket;
+        private DataGridViewTextBoxColumn columnIdTicket;
+        private DataGridViewTextBoxColumn columnCause;
+        private DataGridViewTextBoxColumn columnTicketStatus;
+        private DataGridViewTextBoxColumn columnCriticidade;
+        private DataGridViewTextBoxColumn columnTecnico;
+        private DataGridViewButtonColumn columnVisualizar;
     }
 }
