@@ -52,6 +52,10 @@ namespace WinFormsApp1
                 }
             }
         }
+        public Button ButtonLogar
+        {
+            get { return this.btnLogar; }
+        }
         private bool NivelDeAcesso(string token)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -78,7 +82,7 @@ namespace WinFormsApp1
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadJwtToken(token);
             var nomeUsuario = jsonToken?.Claims
-                .Where(c => c.Type == ClaimTypes.Name)
+                .Where(c => c.Type == ClaimTypes.GivenName)
                 .Select(c => c.Value)
                 .ToList();
             return nomeUsuario;
@@ -173,13 +177,14 @@ namespace WinFormsApp1
             Controls.Add(txtPassword);
             Controls.Add(txtLogin);
             Name = "TelaLogin";
+            Load += TelaLogin_Load;
             ((System.ComponentModel.ISupportInitialize)pboxLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
         }
 
-        
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -190,6 +195,7 @@ namespace WinFormsApp1
         {
             var username = txtLogin.Text;
             var password = txtPassword.Text;
+            btnLogar.Enabled = false;
 
             var loginRequest = new LoginRequest
             {
@@ -221,12 +227,19 @@ namespace WinFormsApp1
                     var handler = new JwtSecurityTokenHandler();
                     var jsonToken = handler.ReadJwtToken(_accessToken);
                     MessageBox.Show(jsonToken.ToString());
+                    btnLogar.Enabled = true;
                 }
             }
             else
             {
                 MessageBox.Show("Falha no login. Verifique usuário e senha.");
+                btnLogar.Enabled = true;
             }
+        }
+
+        private void TelaLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

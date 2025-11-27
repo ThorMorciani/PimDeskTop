@@ -53,7 +53,7 @@ namespace WinFormsApp1
             {
                 perfil = 5;
             }
-            else if (cboPerfis.Text.Trim() == "Funcionário")
+            else if (cboPerfis.Text.Trim() == "Funcionario")
             {
                 perfil = 6;
             }
@@ -75,9 +75,10 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    dgvUsers.Rows.Add(nome, email, status, editar);
                     txtName.Clear();
+                    txtUser.Clear();
                     txtEmail.Clear();
+                    cboPerfis.SelectedIndex = -1;
                     txtPassword.Clear();
                     txtConfirmPassword.Clear();
 
@@ -196,6 +197,7 @@ namespace WinFormsApp1
                 lblPassword.Visible = false;
                 lblId.Visible = true;
                 txtID.Visible = true;
+                btnCancel.Visible = true;
 
                 object value = dgvUsers.Rows[e.RowIndex].Cells["columnID"].Value;
                 if (value != null && long.TryParse(value.ToString(), out long userId))
@@ -220,6 +222,7 @@ namespace WinFormsApp1
                                     txtID.Text = user.Id.ToString();
                                     txtName.Text = user.Name;
                                     txtUser.Text = user.Username;
+                                    txtEmail.Text = user.Email;
                                     cboPerfis.Text = user.Profile.ProfileName;
                                 }
                                 else
@@ -354,7 +357,7 @@ namespace WinFormsApp1
                     {
                         perfil = 5;
                     }
-                    else if (cboPerfis.Text == "Funcionário")
+                    else if (cboPerfis.Text == "Funcionario")
                     {
                         perfil = 6;
                     }
@@ -386,6 +389,12 @@ namespace WinFormsApp1
                         txtConfirmPassword.Visible = true;
                         lblConfirmPassword.Visible = true;
                         lblPassword.Visible = true;
+                        btnCancel.Visible = false;
+                        txtName.Clear();
+                        txtUser.Clear();
+                        txtEmail.Clear();
+                        cboPerfis.SelectedIndex = -1;
+
                     }
                     else
                     {
@@ -403,6 +412,7 @@ namespace WinFormsApp1
 
         private async void TelaInicial_Load(object sender, EventArgs e)
         {
+            cboPerfis.DropDownStyle = ComboBoxStyle.DropDownList;
             try
             {
                 using (var client = new HttpClient())
@@ -504,7 +514,10 @@ namespace WinFormsApp1
 
         private void btnDeslogar_Click(object sender, EventArgs e)
         {
+            
+            
             var telaLogin = new TelaLogin();
+            telaLogin.ButtonLogar.Enabled = true;
             this.Close();
             telaLogin.Show();
 
@@ -607,6 +620,23 @@ namespace WinFormsApp1
                     }
                 }
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            txtID.Visible = false;
+            lblId.Visible = false;
+            btnEditar.Visible = false;
+            btnRegister.Visible = true;
+            txtPassword.Visible = true;
+            txtConfirmPassword.Visible = true;
+            lblConfirmPassword.Visible = true;
+            lblPassword.Visible = true;
+            btnCancel.Visible = false;
+            txtName.Clear();
+            txtUser.Clear();
+            cboPerfis.SelectedIndex = -1;
+            txtEmail.Clear();
         }
     }
 }
