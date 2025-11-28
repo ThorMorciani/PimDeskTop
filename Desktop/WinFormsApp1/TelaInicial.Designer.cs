@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaInicial));
             tbcMenu = new TabControl();
             tabPerfil = new TabPage();
+            txtIdUser = new TextBox();
+            lblIdUser = new Label();
             btnDeslogar = new Button();
             txtCargoUser = new TextBox();
             txtNomeUser = new TextBox();
@@ -64,16 +66,26 @@
             txtName = new TextBox();
             txtUser = new TextBox();
             tbpCausasRaiz = new TabPage();
-            btnCadastrarCausaRaiz = new Button();
-            cboPrioridade = new ComboBox();
-            lblPriority = new Label();
-            lblRoot = new Label();
-            txtNomeCausaRaiz = new TextBox();
             dgvCausaRaiz = new DataGridView();
+            columnIdCausaRaiz = new DataGridViewTextBoxColumn();
             columnCausaRaiz = new DataGridViewTextBoxColumn();
             columnPrioridade = new DataGridViewTextBoxColumn();
             columnStatus = new DataGridViewButtonColumn();
             tabTicket = new TabPage();
+            lblAtualizadoEm = new Label();
+            txtAtualizadoEm = new TextBox();
+            lblCriadoEm = new Label();
+            txtCriadoEm = new TextBox();
+            lblAbertoPor = new Label();
+            txtAbertoPor = new TextBox();
+            txtTecnico = new TextBox();
+            lblTecnico = new Label();
+            txtCausaRaiz = new TextBox();
+            lblCausaRaiz = new Label();
+            txtCriticidade = new TextBox();
+            lblCriticidade = new Label();
+            txtSolucao = new TextBox();
+            lblSolucao = new Label();
             lblDescricaoTicket = new Label();
             lblStatusTicket = new Label();
             lblIdTicket = new Label();
@@ -87,20 +99,6 @@
             columnCriticidade = new DataGridViewTextBoxColumn();
             columnTecnico = new DataGridViewTextBoxColumn();
             columnVisualizar = new DataGridViewButtonColumn();
-            lblSolucao = new Label();
-            txtSolucao = new TextBox();
-            lblCriticidade = new Label();
-            txtCriticidade = new TextBox();
-            lblCausaRaiz = new Label();
-            txtCausaRaiz = new TextBox();
-            lblTecnico = new Label();
-            txtTecnico = new TextBox();
-            textBox1 = new TextBox();
-            lblAbertoPor = new Label();
-            txtCriadoEm = new TextBox();
-            lblCriadoEm = new Label();
-            txtAtualizadoEm = new TextBox();
-            lblAtualizadoEm = new Label();
             tbcMenu.SuspendLayout();
             tabPerfil.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -126,6 +124,8 @@
             // 
             // tabPerfil
             // 
+            tabPerfil.Controls.Add(txtIdUser);
+            tabPerfil.Controls.Add(lblIdUser);
             tabPerfil.Controls.Add(btnDeslogar);
             tabPerfil.Controls.Add(txtCargoUser);
             tabPerfil.Controls.Add(txtNomeUser);
@@ -140,9 +140,26 @@
             tabPerfil.UseVisualStyleBackColor = true;
             tabPerfil.Click += tabPerfil_Click;
             // 
+            // txtIdUser
+            // 
+            txtIdUser.Enabled = false;
+            txtIdUser.Location = new Point(32, 215);
+            txtIdUser.Name = "txtIdUser";
+            txtIdUser.Size = new Size(171, 23);
+            txtIdUser.TabIndex = 9;
+            // 
+            // lblIdUser
+            // 
+            lblIdUser.AutoSize = true;
+            lblIdUser.Location = new Point(32, 197);
+            lblIdUser.Name = "lblIdUser";
+            lblIdUser.Size = new Size(20, 15);
+            lblIdUser.TabIndex = 8;
+            lblIdUser.Text = "Id:";
+            // 
             // btnDeslogar
             // 
-            btnDeslogar.Location = new Point(32, 326);
+            btnDeslogar.Location = new Point(32, 378);
             btnDeslogar.Name = "btnDeslogar";
             btnDeslogar.Size = new Size(171, 23);
             btnDeslogar.TabIndex = 7;
@@ -153,7 +170,7 @@
             // txtCargoUser
             // 
             txtCargoUser.Enabled = false;
-            txtCargoUser.Location = new Point(32, 281);
+            txtCargoUser.Location = new Point(32, 338);
             txtCargoUser.Name = "txtCargoUser";
             txtCargoUser.Size = new Size(171, 23);
             txtCargoUser.TabIndex = 6;
@@ -161,7 +178,7 @@
             // txtNomeUser
             // 
             txtNomeUser.Enabled = false;
-            txtNomeUser.Location = new Point(32, 221);
+            txtNomeUser.Location = new Point(31, 275);
             txtNomeUser.Name = "txtNomeUser";
             txtNomeUser.Size = new Size(171, 23);
             txtNomeUser.TabIndex = 5;
@@ -169,7 +186,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(31, 203);
+            label2.Location = new Point(31, 257);
             label2.Name = "label2";
             label2.Size = new Size(43, 15);
             label2.TabIndex = 4;
@@ -178,7 +195,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 263);
+            label1.Location = new Point(32, 320);
             label1.Name = "label1";
             label1.Size = new Size(42, 15);
             label1.TabIndex = 3;
@@ -217,6 +234,7 @@
             tabPageCadastro.Controls.Add(txtEmail);
             tabPageCadastro.Controls.Add(txtName);
             tabPageCadastro.Controls.Add(txtUser);
+            tabPageCadastro.ImeMode = ImeMode.NoControl;
             tabPageCadastro.Location = new Point(4, 24);
             tabPageCadastro.Name = "tabPageCadastro";
             tabPageCadastro.Padding = new Padding(3);
@@ -229,9 +247,9 @@
             // btnCancel
             // 
             btnCancel.Cursor = Cursors.Hand;
-            btnCancel.Location = new Point(179, 370);
+            btnCancel.Location = new Point(194, 373);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(147, 31);
+            btnCancel.Size = new Size(132, 31);
             btnCancel.TabIndex = 20;
             btnCancel.Text = "Cancelar";
             btnCancel.UseVisualStyleBackColor = true;
@@ -270,7 +288,7 @@
             // btnEditar
             // 
             btnEditar.Cursor = Cursors.Hand;
-            btnEditar.Location = new Point(26, 370);
+            btnEditar.Location = new Point(26, 373);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(131, 31);
             btnEditar.TabIndex = 16;
@@ -282,7 +300,7 @@
             // cboPerfis
             // 
             cboPerfis.FormattingEnabled = true;
-            cboPerfis.Items.AddRange(new object[] { "Gerente", "Funcionario" });
+            cboPerfis.Items.AddRange(new object[] { "Gerente", "Funcionario", "Tecnico" });
             cboPerfis.Location = new Point(26, 239);
             cboPerfis.Name = "cboPerfis";
             cboPerfis.Size = new Size(299, 23);
@@ -437,11 +455,6 @@
             // 
             // tbpCausasRaiz
             // 
-            tbpCausasRaiz.Controls.Add(btnCadastrarCausaRaiz);
-            tbpCausasRaiz.Controls.Add(cboPrioridade);
-            tbpCausasRaiz.Controls.Add(lblPriority);
-            tbpCausasRaiz.Controls.Add(lblRoot);
-            tbpCausasRaiz.Controls.Add(txtNomeCausaRaiz);
             tbpCausasRaiz.Controls.Add(dgvCausaRaiz);
             tbpCausasRaiz.Location = new Point(4, 24);
             tbpCausasRaiz.Name = "tbpCausasRaiz";
@@ -449,74 +462,38 @@
             tbpCausasRaiz.TabIndex = 2;
             tbpCausasRaiz.Text = "Cadastro de Causas Raíz";
             tbpCausasRaiz.UseVisualStyleBackColor = true;
-            // 
-            // btnCadastrarCausaRaiz
-            // 
-            btnCadastrarCausaRaiz.Cursor = Cursors.Hand;
-            btnCadastrarCausaRaiz.Location = new Point(19, 172);
-            btnCadastrarCausaRaiz.Name = "btnCadastrarCausaRaiz";
-            btnCadastrarCausaRaiz.Size = new Size(191, 23);
-            btnCadastrarCausaRaiz.TabIndex = 5;
-            btnCadastrarCausaRaiz.Text = "Cadastrar Causa Raíz";
-            btnCadastrarCausaRaiz.UseVisualStyleBackColor = true;
-            btnCadastrarCausaRaiz.Click += btnCadastrarCausaRaiz_Click;
-            // 
-            // cboPrioridade
-            // 
-            cboPrioridade.FormattingEnabled = true;
-            cboPrioridade.Items.AddRange(new object[] { "Alto", "Médio", "Baixo" });
-            cboPrioridade.Location = new Point(19, 114);
-            cboPrioridade.Name = "cboPrioridade";
-            cboPrioridade.Size = new Size(191, 23);
-            cboPrioridade.TabIndex = 4;
-            // 
-            // lblPriority
-            // 
-            lblPriority.AutoSize = true;
-            lblPriority.Location = new Point(19, 85);
-            lblPriority.Name = "lblPriority";
-            lblPriority.Size = new Size(107, 15);
-            lblPriority.TabIndex = 3;
-            lblPriority.Text = "Nível de Prioridade";
-            // 
-            // lblRoot
-            // 
-            lblRoot.AutoSize = true;
-            lblRoot.Location = new Point(19, 26);
-            lblRoot.Name = "lblRoot";
-            lblRoot.Size = new Size(99, 15);
-            lblRoot.TabIndex = 2;
-            lblRoot.Text = "Nome Causa Raíz";
-            // 
-            // txtNomeCausaRaiz
-            // 
-            txtNomeCausaRaiz.Location = new Point(19, 49);
-            txtNomeCausaRaiz.Name = "txtNomeCausaRaiz";
-            txtNomeCausaRaiz.Size = new Size(191, 23);
-            txtNomeCausaRaiz.TabIndex = 1;
+            tbpCausasRaiz.Click += tbpCausasRaiz_Click;
             // 
             // dgvCausaRaiz
             // 
             dgvCausaRaiz.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCausaRaiz.Columns.AddRange(new DataGridViewColumn[] { columnCausaRaiz, columnPrioridade, columnStatus });
-            dgvCausaRaiz.Location = new Point(397, 26);
+            dgvCausaRaiz.Columns.AddRange(new DataGridViewColumn[] { columnIdCausaRaiz, columnCausaRaiz, columnPrioridade, columnStatus });
+            dgvCausaRaiz.Location = new Point(127, 37);
             dgvCausaRaiz.Name = "dgvCausaRaiz";
-            dgvCausaRaiz.Size = new Size(903, 510);
+            dgvCausaRaiz.Size = new Size(1003, 510);
             dgvCausaRaiz.TabIndex = 0;
             dgvCausaRaiz.CellContentClick += dgvCausaRaiz_CellContentClick;
             // 
+            // columnIdCausaRaiz
+            // 
+            columnIdCausaRaiz.HeaderText = "ID";
+            columnIdCausaRaiz.Name = "columnIdCausaRaiz";
+            // 
             // columnCausaRaiz
             // 
+            columnCausaRaiz.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             columnCausaRaiz.HeaderText = "Nome Causa Raíz";
             columnCausaRaiz.Name = "columnCausaRaiz";
             // 
             // columnPrioridade
             // 
+            columnPrioridade.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             columnPrioridade.HeaderText = "Prioridade";
             columnPrioridade.Name = "columnPrioridade";
             // 
             // columnStatus
             // 
+            columnStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             columnStatus.HeaderText = "Status";
             columnStatus.Name = "columnStatus";
             // 
@@ -527,7 +504,7 @@
             tabTicket.Controls.Add(lblCriadoEm);
             tabTicket.Controls.Add(txtCriadoEm);
             tabTicket.Controls.Add(lblAbertoPor);
-            tabTicket.Controls.Add(textBox1);
+            tabTicket.Controls.Add(txtAbertoPor);
             tabTicket.Controls.Add(txtTecnico);
             tabTicket.Controls.Add(lblTecnico);
             tabTicket.Controls.Add(txtCausaRaiz);
@@ -549,6 +526,126 @@
             tabTicket.TabIndex = 4;
             tabTicket.Text = "Ticket";
             tabTicket.UseVisualStyleBackColor = true;
+            // 
+            // lblAtualizadoEm
+            // 
+            lblAtualizadoEm.AutoSize = true;
+            lblAtualizadoEm.Location = new Point(150, 136);
+            lblAtualizadoEm.Name = "lblAtualizadoEm";
+            lblAtualizadoEm.Size = new Size(83, 15);
+            lblAtualizadoEm.TabIndex = 20;
+            lblAtualizadoEm.Text = "Atualizado em";
+            // 
+            // txtAtualizadoEm
+            // 
+            txtAtualizadoEm.Enabled = false;
+            txtAtualizadoEm.Location = new Point(150, 154);
+            txtAtualizadoEm.Name = "txtAtualizadoEm";
+            txtAtualizadoEm.Size = new Size(116, 23);
+            txtAtualizadoEm.TabIndex = 19;
+            // 
+            // lblCriadoEm
+            // 
+            lblCriadoEm.AutoSize = true;
+            lblCriadoEm.Location = new Point(18, 136);
+            lblCriadoEm.Name = "lblCriadoEm";
+            lblCriadoEm.Size = new Size(62, 15);
+            lblCriadoEm.TabIndex = 18;
+            lblCriadoEm.Text = "Criado em";
+            // 
+            // txtCriadoEm
+            // 
+            txtCriadoEm.Enabled = false;
+            txtCriadoEm.Location = new Point(18, 154);
+            txtCriadoEm.Name = "txtCriadoEm";
+            txtCriadoEm.Size = new Size(116, 23);
+            txtCriadoEm.TabIndex = 17;
+            // 
+            // lblAbertoPor
+            // 
+            lblAbertoPor.AutoSize = true;
+            lblAbertoPor.Location = new Point(284, 136);
+            lblAbertoPor.Name = "lblAbertoPor";
+            lblAbertoPor.Size = new Size(64, 15);
+            lblAbertoPor.TabIndex = 16;
+            lblAbertoPor.Text = "Aberto por";
+            // 
+            // txtAbertoPor
+            // 
+            txtAbertoPor.Enabled = false;
+            txtAbertoPor.Location = new Point(284, 154);
+            txtAbertoPor.Name = "txtAbertoPor";
+            txtAbertoPor.Size = new Size(116, 23);
+            txtAbertoPor.TabIndex = 15;
+            // 
+            // txtTecnico
+            // 
+            txtTecnico.Enabled = false;
+            txtTecnico.Location = new Point(410, 154);
+            txtTecnico.Name = "txtTecnico";
+            txtTecnico.Size = new Size(116, 23);
+            txtTecnico.TabIndex = 14;
+            // 
+            // lblTecnico
+            // 
+            lblTecnico.AutoSize = true;
+            lblTecnico.Location = new Point(410, 136);
+            lblTecnico.Name = "lblTecnico";
+            lblTecnico.Size = new Size(116, 15);
+            lblTecnico.TabIndex = 13;
+            lblTecnico.Text = "Técnico Responsável";
+            // 
+            // txtCausaRaiz
+            // 
+            txtCausaRaiz.Enabled = false;
+            txtCausaRaiz.Location = new Point(284, 93);
+            txtCausaRaiz.Name = "txtCausaRaiz";
+            txtCausaRaiz.Size = new Size(242, 23);
+            txtCausaRaiz.TabIndex = 12;
+            // 
+            // lblCausaRaiz
+            // 
+            lblCausaRaiz.AutoSize = true;
+            lblCausaRaiz.Location = new Point(284, 75);
+            lblCausaRaiz.Name = "lblCausaRaiz";
+            lblCausaRaiz.Size = new Size(63, 15);
+            lblCausaRaiz.TabIndex = 11;
+            lblCausaRaiz.Text = "Causa Raíz";
+            // 
+            // txtCriticidade
+            // 
+            txtCriticidade.Enabled = false;
+            txtCriticidade.Location = new Point(150, 93);
+            txtCriticidade.Name = "txtCriticidade";
+            txtCriticidade.Size = new Size(116, 23);
+            txtCriticidade.TabIndex = 10;
+            // 
+            // lblCriticidade
+            // 
+            lblCriticidade.AutoSize = true;
+            lblCriticidade.Location = new Point(150, 75);
+            lblCriticidade.Name = "lblCriticidade";
+            lblCriticidade.Size = new Size(64, 15);
+            lblCriticidade.TabIndex = 9;
+            lblCriticidade.Text = "Criticidade";
+            // 
+            // txtSolucao
+            // 
+            txtSolucao.Enabled = false;
+            txtSolucao.Location = new Point(284, 231);
+            txtSolucao.Multiline = true;
+            txtSolucao.Name = "txtSolucao";
+            txtSolucao.Size = new Size(242, 181);
+            txtSolucao.TabIndex = 8;
+            // 
+            // lblSolucao
+            // 
+            lblSolucao.AutoSize = true;
+            lblSolucao.Location = new Point(284, 213);
+            lblSolucao.Name = "lblSolucao";
+            lblSolucao.Size = new Size(49, 15);
+            lblSolucao.TabIndex = 7;
+            lblSolucao.Text = "Solução";
             // 
             // lblDescricaoTicket
             // 
@@ -642,126 +739,6 @@
             columnVisualizar.HeaderText = "Visualizar";
             columnVisualizar.Name = "columnVisualizar";
             // 
-            // lblSolucao
-            // 
-            lblSolucao.AutoSize = true;
-            lblSolucao.Location = new Point(284, 213);
-            lblSolucao.Name = "lblSolucao";
-            lblSolucao.Size = new Size(49, 15);
-            lblSolucao.TabIndex = 7;
-            lblSolucao.Text = "Solução";
-            // 
-            // txtSolucao
-            // 
-            txtSolucao.Enabled = false;
-            txtSolucao.Location = new Point(284, 231);
-            txtSolucao.Multiline = true;
-            txtSolucao.Name = "txtSolucao";
-            txtSolucao.Size = new Size(242, 181);
-            txtSolucao.TabIndex = 8;
-            // 
-            // lblCriticidade
-            // 
-            lblCriticidade.AutoSize = true;
-            lblCriticidade.Location = new Point(150, 75);
-            lblCriticidade.Name = "lblCriticidade";
-            lblCriticidade.Size = new Size(64, 15);
-            lblCriticidade.TabIndex = 9;
-            lblCriticidade.Text = "Criticidade";
-            // 
-            // txtCriticidade
-            // 
-            txtCriticidade.Enabled = false;
-            txtCriticidade.Location = new Point(150, 93);
-            txtCriticidade.Name = "txtCriticidade";
-            txtCriticidade.Size = new Size(116, 23);
-            txtCriticidade.TabIndex = 10;
-            // 
-            // lblCausaRaiz
-            // 
-            lblCausaRaiz.AutoSize = true;
-            lblCausaRaiz.Location = new Point(284, 75);
-            lblCausaRaiz.Name = "lblCausaRaiz";
-            lblCausaRaiz.Size = new Size(63, 15);
-            lblCausaRaiz.TabIndex = 11;
-            lblCausaRaiz.Text = "Causa Raíz";
-            // 
-            // txtCausaRaiz
-            // 
-            txtCausaRaiz.Enabled = false;
-            txtCausaRaiz.Location = new Point(284, 93);
-            txtCausaRaiz.Name = "txtCausaRaiz";
-            txtCausaRaiz.Size = new Size(116, 23);
-            txtCausaRaiz.TabIndex = 12;
-            // 
-            // lblTecnico
-            // 
-            lblTecnico.AutoSize = true;
-            lblTecnico.Location = new Point(410, 75);
-            lblTecnico.Name = "lblTecnico";
-            lblTecnico.Size = new Size(116, 15);
-            lblTecnico.TabIndex = 13;
-            lblTecnico.Text = "Técnico Responsável";
-            // 
-            // txtTecnico
-            // 
-            txtTecnico.Enabled = false;
-            txtTecnico.Location = new Point(410, 93);
-            txtTecnico.Name = "txtTecnico";
-            txtTecnico.Size = new Size(116, 23);
-            txtTecnico.TabIndex = 14;
-            // 
-            // textBox1
-            // 
-            textBox1.Enabled = false;
-            textBox1.Location = new Point(18, 154);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(116, 23);
-            textBox1.TabIndex = 15;
-            // 
-            // lblAbertoPor
-            // 
-            lblAbertoPor.AutoSize = true;
-            lblAbertoPor.Location = new Point(18, 136);
-            lblAbertoPor.Name = "lblAbertoPor";
-            lblAbertoPor.Size = new Size(64, 15);
-            lblAbertoPor.TabIndex = 16;
-            lblAbertoPor.Text = "Aberto por";
-            // 
-            // txtCriadoEm
-            // 
-            txtCriadoEm.Enabled = false;
-            txtCriadoEm.Location = new Point(150, 154);
-            txtCriadoEm.Name = "txtCriadoEm";
-            txtCriadoEm.Size = new Size(116, 23);
-            txtCriadoEm.TabIndex = 17;
-            // 
-            // lblCriadoEm
-            // 
-            lblCriadoEm.AutoSize = true;
-            lblCriadoEm.Location = new Point(150, 136);
-            lblCriadoEm.Name = "lblCriadoEm";
-            lblCriadoEm.Size = new Size(62, 15);
-            lblCriadoEm.TabIndex = 18;
-            lblCriadoEm.Text = "Criado em";
-            // 
-            // txtAtualizadoEm
-            // 
-            txtAtualizadoEm.Enabled = false;
-            txtAtualizadoEm.Location = new Point(284, 154);
-            txtAtualizadoEm.Name = "txtAtualizadoEm";
-            txtAtualizadoEm.Size = new Size(116, 23);
-            txtAtualizadoEm.TabIndex = 19;
-            // 
-            // lblAtualizadoEm
-            // 
-            lblAtualizadoEm.AutoSize = true;
-            lblAtualizadoEm.Location = new Point(284, 136);
-            lblAtualizadoEm.Name = "lblAtualizadoEm";
-            lblAtualizadoEm.Size = new Size(83, 15);
-            lblAtualizadoEm.TabIndex = 20;
-            lblAtualizadoEm.Text = "Atualizado em";
-            // 
             // TelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -779,7 +756,6 @@
             tabPageCadastro.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             tbpCausasRaiz.ResumeLayout(false);
-            tbpCausasRaiz.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCausaRaiz).EndInit();
             tabTicket.ResumeLayout(false);
             tabTicket.PerformLayout();
@@ -810,9 +786,6 @@
         private DataGridView dgvCausaRaiz;
         private Button btnCadastrarCausaRaiz;
         private ComboBox cboPrioridade;
-        private DataGridViewTextBoxColumn columnCausaRaiz;
-        private DataGridViewTextBoxColumn columnPrioridade;
-        private DataGridViewButtonColumn columnStatus;
         private DataGridViewTextBoxColumn columnID;
         private DataGridViewTextBoxColumn columnPerfil;
         private DataGridViewTextBoxColumn columnName;
@@ -860,6 +833,12 @@
         private Label lblCriadoEm;
         private TextBox txtCriadoEm;
         private Label lblAbertoPor;
-        private TextBox textBox1;
+        private TextBox txtAbertoPor;
+        private DataGridViewTextBoxColumn columnIdCausaRaiz;
+        private DataGridViewTextBoxColumn columnCausaRaiz;
+        private DataGridViewTextBoxColumn columnPrioridade;
+        private DataGridViewButtonColumn columnStatus;
+        private TextBox txtIdUser;
+        private Label lblIdUser;
     }
 }
