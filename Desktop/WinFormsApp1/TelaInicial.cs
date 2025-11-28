@@ -26,16 +26,19 @@ namespace WinFormsApp1
         private static readonly HttpClient client = new HttpClient();
         private List<string> _nomeUsuario;
         private List<string> _cargoUsuario;
+        private List<string> _idUsuario;
 
 
-        public TelaInicial(List<string> nome, List<string> cargo)
+        public TelaInicial(List<string> nome, List<string> cargo, List<string> id)
         {
             InitializeComponent();
             _nomeUsuario = nome;
             _cargoUsuario = cargo;
+            _idUsuario = id;
 
             txtNomeUser.Text = _nomeUsuario[0];
             txtCargoUser.Text = _cargoUsuario[0];
+            txtIdUser.Text = _idUsuario[0];
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -130,7 +133,7 @@ namespace WinFormsApp1
                 DataGridViewButtonCell btnCell = (DataGridViewButtonCell)row.Cells["columnAtividade"];
                 object userId = dgvUsers.Rows[e.RowIndex].Cells["columnID"].Value;
                 string statusAtual = btnCell.Value?.ToString();
-
+                var userIdString = userId.ToString();
                 if (statusAtual == "Ativo")
                 {
                     var resposta = MessageBox.Show(
@@ -141,29 +144,38 @@ namespace WinFormsApp1
 
                     if (resposta == DialogResult.Yes)
                     {
-                        btnCell.Value = "Inativo";
-                        try
+                        if (userIdString == txtIdUser.Text)
                         {
-                            using (var client = new HttpClient())
-                            {
-                                client.BaseAddress = new Uri("https://localhost:7158/");
-                                var response = await client.DeleteAsync($"User/{userId}");
-                                if (response.IsSuccessStatusCode)
-                                {
-                                    MessageBox.Show("Usuário inativado com sucesso!");
+                            MessageBox.Show("Você não pode inativar o próprio usuário");
 
-                                }
-                                else
+                        }
+                        else
+                        {
+                            btnCell.Value = "Inativo";
+                            try
+                            {
+                                using (var client = new HttpClient())
                                 {
-                                    string msg = await response.Content.ReadAsStringAsync();
-                                    MessageBox.Show($"Erro ao inativar: {msg}");
+                                    client.BaseAddress = new Uri("https://localhost:7158/");
+                                    var response = await client.DeleteAsync($"User/{userId}");
+                                    if (response.IsSuccessStatusCode)
+                                    {
+                                        MessageBox.Show("Usuário inativado com sucesso!");
+
+                                    }
+                                    else
+                                    {
+                                        string msg = await response.Content.ReadAsStringAsync();
+                                        MessageBox.Show($"Erro ao inativar: {msg}");
+                                    }
                                 }
                             }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Erro interno: {ex.Message}");
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Erro interno: {ex.Message}");
-                        }
+
                     }
                 }
 
@@ -179,6 +191,28 @@ namespace WinFormsApp1
                     if (resposta == DialogResult.Yes)
                     {
                         btnCell.Value = "Ativo";
+                        try
+                        {
+                            using (var client = new HttpClient())
+                            {
+                                client.BaseAddress = new Uri("https://localhost:7158/");
+                                var response = await client.DeleteAsync($"User/{userId}");
+                                if (response.IsSuccessStatusCode)
+                                {
+                                    MessageBox.Show("Usuário ativado com sucesso!");
+
+                                }
+                                else
+                                {
+                                    string msg = await response.Content.ReadAsStringAsync();
+                                    MessageBox.Show($"Erro ao ativar: {msg}");
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro interno: {ex.Message}");
+                        }
                     }
                 }
             }
@@ -189,58 +223,68 @@ namespace WinFormsApp1
             if (dgvUsers.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
       dgvUsers.Columns[e.ColumnIndex].Name == "columnEditar")
             {
-                btnEditar.Visible = true;
-                btnRegister.Visible = false;
-                txtPassword.Visible = false;
-                txtConfirmPassword.Visible = false;
-                lblConfirmPassword.Visible = false;
-                lblPassword.Visible = false;
-                lblId.Visible = true;
-                txtID.Visible = true;
-                btnCancel.Visible = true;
-
-                object value = dgvUsers.Rows[e.RowIndex].Cells["columnID"].Value;
-                if (value != null && long.TryParse(value.ToString(), out long userId))
+                var idUsuario = _idUsuario[0].ToString();
+                if (idUsuario == txtIdUser.Text)
                 {
-                    try
+                    MessageBox.Show("Você não pode editar o próprio usuário");
+
+                }
+                else
+                {
+                    btnEditar.Visible = true;
+                    btnRegister.Visible = false;
+                    txtPassword.Visible = false;
+                    txtConfirmPassword.Visible = false;
+                    lblConfirmPassword.Visible = false;
+                    lblPassword.Visible = false;
+                    lblId.Visible = true;
+                    txtID.Visible = true;
+                    btnCancel.Visible = true;
+
+                    object value = dgvUsers.Rows[e.RowIndex].Cells["columnID"].Value;
+                    if (value != null && long.TryParse(value.ToString(), out long userId))
                     {
-                        using (var client = new HttpClient())
+                        try
                         {
-                            client.BaseAddress = new Uri("https://localhost:7158/");
-                            client.DefaultRequestHeaders.Accept.Clear();
-                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                            HttpResponseMessage response = await client.GetAsync($"User/{userId}");
-                            if (response.IsSuccessStatusCode)
+                            using (var client = new HttpClient())
                             {
-                                var json = await response.Content.ReadAsStringAsync();
-                                var user = JsonConvert.DeserializeObject<UserResponse>(json);
+                                client.BaseAddress = new Uri("https://localhost:7158/");
+                                client.DefaultRequestHeaders.Accept.Clear();
+                                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                                if (user != null)
+                                HttpResponseMessage response = await client.GetAsync($"User/{userId}");
+                                if (response.IsSuccessStatusCode)
                                 {
+                                    var json = await response.Content.ReadAsStringAsync();
+                                    var user = JsonConvert.DeserializeObject<UserResponse>(json);
 
-                                    txtID.Text = user.Id.ToString();
-                                    txtName.Text = user.Name;
-                                    txtUser.Text = user.Username;
-                                    txtEmail.Text = user.Email;
-                                    cboPerfis.Text = user.Profile.ProfileName;
+                                    if (user != null)
+                                    {
+
+                                        txtID.Text = user.Id.ToString();
+                                        txtName.Text = user.Name;
+                                        txtUser.Text = user.Username;
+                                        txtEmail.Text = user.Email;
+                                        cboPerfis.Text = user.Profile.ProfileName;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Usuário não encontrado.");
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Usuário não encontrado.");
+                                    string msg = await response.Content.ReadAsStringAsync();
+                                    MessageBox.Show($"Erro ao buscar usuário: {msg}");
                                 }
                             }
-                            else
-                            {
-                                string msg = await response.Content.ReadAsStringAsync();
-                                MessageBox.Show($"Erro ao buscar usuário: {msg}");
-                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro interno: {ex.Message}");
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Erro interno: {ex.Message}");
-                    }
+                
                 }
             }
 
@@ -273,7 +317,7 @@ namespace WinFormsApp1
 
         }
 
-        private void dgvCausaRaiz_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvCausaRaiz_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
             if (e.RowIndex < 0) return;
@@ -282,7 +326,7 @@ namespace WinFormsApp1
             DataGridViewRow row = dgvCausaRaiz.Rows[e.RowIndex];
             DataGridViewButtonCell btnCell = (DataGridViewButtonCell)row.Cells["columnStatus"];
             string statusAtual = btnCell.Value?.ToString();
-
+            object rootId = dgvCausaRaiz.Rows[e.RowIndex].Cells["columnIdCausaRaiz"].Value;
             if (statusAtual == "Ativo")
             {
                 var resposta = MessageBox.Show(
@@ -294,6 +338,28 @@ namespace WinFormsApp1
                 if (resposta == DialogResult.Yes)
                 {
                     btnCell.Value = "Inativo";
+                    try
+                    {
+                        using (var client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri("https://localhost:7158/");
+                            var response = await client.DeleteAsync($"RootCause/{rootId}");
+                            if (response.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Causa Raíz inativado com sucesso!");
+
+                            }
+                            else
+                            {
+                                string msg = await response.Content.ReadAsStringAsync();
+                                MessageBox.Show($"Erro ao inativar a Causa Raíz: {msg}");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro interno: {ex.Message}");
+                    }
                 }
 
             }
@@ -308,6 +374,28 @@ namespace WinFormsApp1
                 if (resposta == DialogResult.Yes)
                 {
                     btnCell.Value = "Ativo";
+                    try
+                    {
+                        using (var client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri("https://localhost:7158/");
+                            var response = await client.DeleteAsync($"RootCause/{rootId}");
+                            if (response.IsSuccessStatusCode)
+                            {
+                                MessageBox.Show("Causa Raíz inativado com sucesso!");
+
+                            }
+                            else
+                            {
+                                string msg = await response.Content.ReadAsStringAsync();
+                                MessageBox.Show($"Erro ao inativar a Causa Raíz: {msg}");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro interno: {ex.Message}");
+                    }
                 }
             }
         }
@@ -413,46 +501,54 @@ namespace WinFormsApp1
         private async void TelaInicial_Load(object sender, EventArgs e)
         {
             cboPerfis.DropDownStyle = ComboBoxStyle.DropDownList;
-            try
+            var tabComGrid = tbcMenu.TabPages["tbpCausasRaiz"];
+            if (tbcMenu.TabPages.Contains(tabComGrid) && _cargoUsuario[0] == "Gerente")
             {
-                using (var client = new HttpClient())
+                tbcMenu.TabPages.Remove(tabComGrid);
+            } else if (!tbcMenu.TabPages.Contains(tabComGrid))
+            {
+                tbcMenu.TabPages.Add(tabComGrid);
+            }
+
+            try
                 {
-                    client.BaseAddress = new Uri("https://localhost:7158/");
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage response = await client.GetAsync("user");
-
-                    if (response.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        string jsonResponse = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show(jsonResponse);
-                        var users = JsonConvert.DeserializeObject<List<UserResponse>>(jsonResponse);
+                        client.BaseAddress = new Uri("https://localhost:7158/");
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                        dgvUsers.Rows.Clear();
+                        HttpResponseMessage response = await client.GetAsync("user");
 
-                        foreach (var user in users)
+                        if (response.IsSuccessStatusCode)
                         {
-                            int rowIndex = dgvUsers.Rows.Add();
-                            dgvUsers.Rows[rowIndex].Cells["columnID"].Value = user.Id;
-                            dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = user.Profile.ProfileName;
-                            dgvUsers.Rows[rowIndex].Cells["columnName"].Value = user.Name;
-                            dgvUsers.Rows[rowIndex].Cells["columnEmail"].Value = user.Email;
-                            dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = user.Active ? "Ativo" : "Inativo";
-                            dgvUsers.Rows[rowIndex].Cells["columnEditar"].Value = "Editar";
+                            string jsonResponse = await response.Content.ReadAsStringAsync();
+                            var users = JsonConvert.DeserializeObject<List<UserResponse>>(jsonResponse);
+
+                            dgvUsers.Rows.Clear();
+
+                            foreach (var user in users)
+                            {
+                                int rowIndex = dgvUsers.Rows.Add();
+                                dgvUsers.Rows[rowIndex].Cells["columnID"].Value = user.Id;
+                                dgvUsers.Rows[rowIndex].Cells["columnPerfil"].Value = user.Profile.ProfileName;
+                                dgvUsers.Rows[rowIndex].Cells["columnName"].Value = user.Name;
+                                dgvUsers.Rows[rowIndex].Cells["columnEmail"].Value = user.Email;
+                                dgvUsers.Rows[rowIndex].Cells["columnAtividade"].Value = user.Active ? "Ativo" : "Inativo";
+                                dgvUsers.Rows[rowIndex].Cells["columnEditar"].Value = "Editar";
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
-                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                }
 
             try
             {
@@ -470,7 +566,7 @@ namespace WinFormsApp1
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         var tickets = JsonConvert.DeserializeObject<List<TicketResponse>>(jsonResponse);
 
-                        dgvTickets.Rows.Clear(); // limpa a tabela antes de preencher novamente (opcional)
+                        dgvTickets.Rows.Clear();
 
                         foreach (var ticket in tickets)
                         {
@@ -497,6 +593,52 @@ namespace WinFormsApp1
                 MessageBox.Show("Erro: " + ex.Message);
             }
 
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:7158/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = await client.GetAsync("RootCause");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        var roots = JsonConvert.DeserializeObject<List<RootCauseResponse>>(jsonResponse);
+
+                        dgvCausaRaiz.Rows.Clear();
+
+                        foreach (var root in roots)
+                        {
+                            int rowIndex = dgvCausaRaiz.Rows.Add();
+                            dgvCausaRaiz.Rows[rowIndex].Cells["columnIdCausaRaiz"].Value = root.Id;
+                            dgvCausaRaiz.Rows[rowIndex].Cells["columnCausaRaiz"].Value = root.RootCauseName;
+                            dgvCausaRaiz.Rows[rowIndex].Cells["columnPrioridade"].Value = root.Criticality;
+                            dgvCausaRaiz.Rows[rowIndex].Cells["columnStatus"].Value = root.Active ? "Ativo" : "Inativo";
+
+
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao acessar a API: " + response.StatusCode);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+
+
+
+
+
 
 
 
@@ -514,8 +656,8 @@ namespace WinFormsApp1
 
         private void btnDeslogar_Click(object sender, EventArgs e)
         {
-            
-            
+
+
             var telaLogin = new TelaLogin();
             telaLogin.ButtonLogar.Enabled = true;
             this.Close();
@@ -541,7 +683,7 @@ namespace WinFormsApp1
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         var users = JsonConvert.DeserializeObject<List<UserResponse>>(jsonResponse);
 
-                        dgvUsers.Rows.Clear(); // limpa a tabela antes de preencher novamente (opcional)
+                        dgvUsers.Rows.Clear();
 
                         foreach (var user in users)
                         {
@@ -600,6 +742,13 @@ namespace WinFormsApp1
                                     txtIdTicket.Text = ticket.Id.ToString();
                                     txtStatus.Text = ticket.Status;
                                     txtDescription.Text = ticket.Description;
+                                    txtCriticidade.Text = ticket.RootCause.Criticality.ToString();
+                                    txtCausaRaiz.Text = ticket.RootCause.RootCauseName.ToString();
+                                    txtTecnico.Text = ticket.Assignee.Name;
+                                    txtAbertoPor.Text = ticket.Reporter.Name;
+                                    txtCriadoEm.Text = ticket.CreatedAt.ToString();
+                                    txtAtualizadoEm.Text = ticket.UpdatedAt.ToString();
+                                    txtSolucao.Text = ticket.Solution;
 
                                 }
                                 else
@@ -637,6 +786,18 @@ namespace WinFormsApp1
             txtUser.Clear();
             cboPerfis.SelectedIndex = -1;
             txtEmail.Clear();
+        }
+
+        private void tbpCausasRaiz_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTeste_Click(object sender, EventArgs e)
+        {
+            
+
+
         }
     }
 }

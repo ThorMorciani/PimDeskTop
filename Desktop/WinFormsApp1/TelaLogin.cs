@@ -67,6 +67,26 @@ namespace WinFormsApp1
 
             return cargoUsuario != null && cargoUsuario.Contains("Admin") || cargoUsuario.Contains("Gerente");
         }
+        private bool AtivoOuInativo(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsoToken = handler.ReadJwtToken(token);
+            var active = jsoToken?.Claims
+                .Where(c => c.Type == ClaimTypes.Sid)
+                .Select(c => c.Value)
+                .ToList();
+            return active.Contains("Ativo");
+        }
+        private List<string> PerfilId(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadJwtToken(token);
+            var idUsuario = jsonToken?.Claims
+               .Where(c => c.Type == ClaimTypes.NameIdentifier)
+               .Select(c => c.Value)
+               .ToList();
+            return idUsuario;
+        }
         private List<string> PerfilCargo(string token)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -184,13 +204,6 @@ namespace WinFormsApp1
 
         }
 
-
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private async void btnLogar_Click(object sender, EventArgs e)
         {
             var username = txtLogin.Text;
@@ -210,12 +223,13 @@ namespace WinFormsApp1
                 _accessToken = loginResponse.AccessToken;
                 _refreshToken = loginResponse.RefreshToken;
 
-                if (NivelDeAcesso(_accessToken))
+                if (NivelDeAcesso(_accessToken) && AtivoOuInativo(_accessToken))
                 {
                     MessageBox.Show("Login realizado! Token recebido.");
                     var nomeUsuarioAcesso = PerfilNome(_accessToken);
                     var cargoUsuarioAcesso = PerfilCargo(_accessToken);
-                    TelaInicial telaInicial = new TelaInicial(nomeUsuarioAcesso, cargoUsuarioAcesso);
+                    var idUsuarioAcesso = PerfilId(_accessToken);
+                    TelaInicial telaInicial = new TelaInicial(nomeUsuarioAcesso, cargoUsuarioAcesso, idUsuarioAcesso);
                     telaInicial.Show();
 
                     this.Hide();
@@ -223,10 +237,9 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    MessageBox.Show("acesso insuficiente");
+                    MessageBox.Show("acesso insuficiente ou inativo");
                     var handler = new JwtSecurityTokenHandler();
                     var jsonToken = handler.ReadJwtToken(_accessToken);
-                    MessageBox.Show(jsonToken.ToString());
                     btnLogar.Enabled = true;
                 }
             }
