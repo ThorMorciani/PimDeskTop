@@ -225,7 +225,7 @@ namespace WinFormsApp1
 
                 if (NivelDeAcesso(_accessToken) && AtivoOuInativo(_accessToken))
                 {
-                    MessageBox.Show("Login realizado! Token recebido.");
+                    MessageBox.Show("Logado com sucesso!");
                     var nomeUsuarioAcesso = PerfilNome(_accessToken);
                     var cargoUsuarioAcesso = PerfilCargo(_accessToken);
                     var idUsuarioAcesso = PerfilId(_accessToken);
@@ -237,7 +237,7 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    MessageBox.Show("acesso insuficiente ou inativo");
+                    MessageBox.Show("Acesso insuficiente ou inativo.");
                     var handler = new JwtSecurityTokenHandler();
                     var jsonToken = handler.ReadJwtToken(_accessToken);
                     btnLogar.Enabled = true;

@@ -60,6 +60,10 @@ namespace WinFormsApp1
             {
                 perfil = 6;
             }
+            else if (cboPerfis.Text.Trim() == "Tecnico")
+            {
+                perfil = 7;
+            }
             string senha = txtPassword.Text.Trim();
             string confirmSenha = txtConfirmPassword.Text.Trim();
             string status = "Ativo";
@@ -132,11 +136,20 @@ namespace WinFormsApp1
                 DataGridViewRow row = dgvUsers.Rows[e.RowIndex];
                 DataGridViewButtonCell btnCell = (DataGridViewButtonCell)row.Cells["columnAtividade"];
                 object userId = dgvUsers.Rows[e.RowIndex].Cells["columnID"].Value;
+                object userPerfil = dgvUsers.Rows[e.RowIndex].Cells["columnPerfil"].Value;
+                object nameProfile = dgvUsers.Rows[e.RowIndex].Cells["columnPerfil"].Value;
                 string statusAtual = btnCell.Value?.ToString();
                 var userIdString = userId.ToString();
                 if (statusAtual == "Ativo")
                 {
-                    var resposta = MessageBox.Show(
+                    if (userIdString == txtIdUser.Text || nameProfile.ToString() == "Admin")
+                    {
+                        MessageBox.Show("Você não tem permissão para alterar este usuário");
+
+                    }
+                    else
+                    {
+                        var resposta = MessageBox.Show(
                         "Deseja realmente inativar este Usuário?",
                         "Confirmar Inativação",
                         MessageBoxButtons.YesNo,
@@ -144,13 +157,7 @@ namespace WinFormsApp1
 
                     if (resposta == DialogResult.Yes)
                     {
-                        if (userIdString == txtIdUser.Text)
-                        {
-                            MessageBox.Show("Você não pode inativar o próprio usuário");
-
-                        }
-                        else
-                        {
+                        
                             btnCell.Value = "Inativo";
                             try
                             {
@@ -223,10 +230,13 @@ namespace WinFormsApp1
             if (dgvUsers.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
       dgvUsers.Columns[e.ColumnIndex].Name == "columnEditar")
             {
+                object idUser = dgvUsers.Rows[e.RowIndex].Cells["columnID"].Value;
+                object nameProfile = dgvUsers.Rows[e.RowIndex].Cells["columnPerfil"].Value;
                 var idUsuario = _idUsuario[0].ToString();
-                if (idUsuario == txtIdUser.Text)
+                var idUserStr = idUser.ToString();
+                if (idUsuario == idUserStr || (nameProfile.ToString() == "Admin"))
                 {
-                    MessageBox.Show("Você não pode editar o próprio usuário");
+                    MessageBox.Show("Você não tem permissão para alterar este usuário");
 
                 }
                 else
@@ -657,12 +667,19 @@ namespace WinFormsApp1
         private void btnDeslogar_Click(object sender, EventArgs e)
         {
 
+            var resposta = MessageBox.Show(
+                   "Deseja realmente Deslogar?",
+                   "Quer mesmo sair?",
+                   MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Question);
 
-            var telaLogin = new TelaLogin();
-            telaLogin.ButtonLogar.Enabled = true;
-            this.Close();
-            telaLogin.Show();
-
+            if (resposta == DialogResult.Yes)
+            {
+                var telaLogin = new TelaLogin();
+                telaLogin.ButtonLogar.Enabled = true;
+                this.Close();
+                telaLogin.Show();
+            }
         }
 
         private async void button1_Click_1(object sender, EventArgs e)
@@ -719,7 +736,6 @@ namespace WinFormsApp1
       dgvTickets.Columns[e.ColumnIndex].Name == "columnVisualizar")
             {
                 object value = dgvTickets.Rows[e.RowIndex].Cells["columnIdTicket"].Value;
-                MessageBox.Show(value.ToString());
                 if (value != null)
                 {
                     try

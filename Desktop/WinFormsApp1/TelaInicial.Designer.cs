@@ -300,7 +300,7 @@
             // cboPerfis
             // 
             cboPerfis.FormattingEnabled = true;
-            cboPerfis.Items.AddRange(new object[] { "Gerente", "Funcionario" });
+            cboPerfis.Items.AddRange(new object[] { "Gerente", "Funcionario", "Tecnico" });
             cboPerfis.Location = new Point(26, 239);
             cboPerfis.Name = "cboPerfis";
             cboPerfis.Size = new Size(299, 23);
